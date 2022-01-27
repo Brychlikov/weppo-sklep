@@ -16,5 +16,6 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     
 
     // TODO : remove express.js logic from controller to route handler
+    // TODO2 : maybe not
     res.render("index", { products: products });
 };

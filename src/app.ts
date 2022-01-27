@@ -9,6 +9,7 @@ import { index } from "./routes/index";
 // Create Express server
 export const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 // Express configuration
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
