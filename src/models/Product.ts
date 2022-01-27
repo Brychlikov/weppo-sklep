@@ -7,6 +7,13 @@ interface ProductI {
     description: string;
     img_url: string;
 }
+
+interface ProductNoIdI {
+    name: string;
+    price: number;
+    description: string;
+    img_url: string;
+}
 export class Product {
     private id: number;
     public name: string;
@@ -35,6 +42,11 @@ export class Product {
         else {
             return null;
         }
+    }
+
+    public static async createProduct(data: ProductNoIdI) : Promise<Product> {
+            const [res] = await knex<ProductI>('products').insert(data).returning("*");
+            return Product.fromI(res);
     }
 
 
