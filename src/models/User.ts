@@ -7,6 +7,12 @@ interface UserI {
     role: string;
 }
 
+interface UserNoIdI {
+    name: string;
+    password: string;
+    role: string;
+}
+
 export class User {
     private id: number;
     public name: string;
@@ -33,5 +39,10 @@ export class User {
         else {
             return null;
         }
+    }
+
+    public async addUser(data : UserNoIdI) {
+        const [res] = await knex<UserI>('users').insert(data).returning("*");
+        return User.fromI(res);
     }
 }
