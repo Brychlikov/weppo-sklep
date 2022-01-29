@@ -6,11 +6,12 @@
 </head>
 
 <body>
-    <form method="POST">
+    <form method="POST" action="/products/new" enctype="multipart/form-data">
         <div>Formularz dodawania produktów:</div>
-        <div>Dodaj zdjecie <input type="file" name="img" /></div>
+        <div>Dodaj zdjecie <input type="file" name="productImage" /></div>
         <div>Nazwa produktu <input type="text" name="name"></div>
         <div>Cena <input type="text" name="price"></div>
+        <div>Opis <input type="text" name="description"></div>
         <div><button> Dodaj produkt </button></div>
     </form>
 </body>

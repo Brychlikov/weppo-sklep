@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "strictNullChecks": true,
         "esModuleInterop": true,
         "target": "es2017",
         "noImplicitAny": true,
