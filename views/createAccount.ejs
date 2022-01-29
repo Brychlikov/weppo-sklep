@@ -44,9 +44,9 @@
 
 <body>
     <form method="POST">
-        <div id='login'>
+        <div id='createAccount'>
             <div>
-                Logowanie
+                Stwórz konto
             </div>
             <div>
                 <input type='text' name='txtUser' />
@@ -57,20 +57,13 @@
                 <label>Hasło:</label>
             </div>
             <div>
-                <button>Zaloguj</button>
+                <button>Stwórz konto</button>
             </div>
             <% if ( locals.message ) { %>
                 <div class='message'>
                     <%= locals.message %>
                 </div>
                 <% } %>
-        </div>
-    </form>
-    <form method="POST">
-        <div id='createAccount'>
-            <div>
-                <button>Stwórz konto</button>
-            </div>
         </div>
     </form>
 </body>

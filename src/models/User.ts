@@ -40,8 +40,18 @@ export class User {
             return null;
         }
     }
-
-    public async addUser(data : UserNoIdI) {
+    
+    public static async getUsersPassword(name : string){
+        const query = knex<UserI>('users').select("password").where({ name }).first();
+        const p = await query;
+        if(p){
+            return p;
+        }else{
+            return "";
+        }
+    }
+    
+    public static async addUser(data : UserNoIdI) {
         const [res] = await knex<UserI>('users').insert(data).returning("*");
         return User.fromI(res);
     }
