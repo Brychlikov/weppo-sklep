@@ -27,5 +27,6 @@ createAccountRouter.post('/', (req, res) => {
     (async function () {
         userData.password = await bcrypt.hash(password, 10);
         const d = await User.addUser(userData);
+        res.redirect('/login');
     })()
 });
