@@ -1,4 +1,19 @@
-DROP TABLE IF EXISTS products, users;
+-- session table, used by connect-pg-simple
+DROP TABLE IF EXISTS "session";
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+
+
+DROP TABLE IF EXISTS products;
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -13,6 +28,7 @@ VALUES
 ('Kuna', 10, 'ssak drapieżny', 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Martes_martes_crop.jpg'), 
 ('Jenot', 20, 'cholera wie co', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Nyctereutes_procyonoides_viverrinus.jpg/1024px-Nyctereutes_procyonoides_viverrinus.jpg');
 
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(50) NOT NULL,

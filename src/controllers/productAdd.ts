@@ -33,8 +33,16 @@ function assertGet(obj: any, prop: string) {
     }
 }
 
+
+declare module 'express-session' {
+    interface SessionData {
+        productName: string,
+    }
+}
+
 uploadRouter.get('/add', (req: Request, res: Response) => {
-    res.render('add_product');
+    const productName = req.session.productName || "";
+    res.render('add_product', { productName });
 });
 
 uploadRouter.post('/new', upload.single('productImage'), async (req: Request, res: Response) => {
