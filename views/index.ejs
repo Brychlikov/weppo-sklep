@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <% if ( locals.user ) { %>
+        <form action="/cart">
+            <div id='cart'>
+                <div>
+                    <button>Cart</button>
+                </div>
+            </div>
+        </form>
+    <% } %>
     <div class="body-wrap">
         <h2>
             Produkty
