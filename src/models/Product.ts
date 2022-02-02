@@ -15,7 +15,7 @@ interface ProductNoIdI {
     img_url: string;
 }
 export class Product {
-    private id: number;
+    public id: number;
     public name: string;
     public price: number;
     public description: string;

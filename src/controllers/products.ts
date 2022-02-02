@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import express from "express";
 import path from "path";
 import { Product } from "../models/Product";
+import { authorize } from "./authorize";
 
 function uniqueFilename() : string{
     return Date.now().toString() + Math.round(Math.random() * 1e7).toString();
@@ -52,7 +53,10 @@ productsRouter.post('/new', upload.single('productImage'), async (req: Request, 
 productsRouter.get("/:id", (req, res) => {
     (async function () {
         var prod = await Product.findById(Number(req.params.id));
-        res.render('product', {product : prod});
+        if(req.signedCookies.user){
+            res.render('product', {product : prod, user : req.signedCookies.user});
+        }else{
+            res.render('product', {product : prod});
+        }
     })();
 });
-
