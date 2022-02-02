@@ -1,4 +1,5 @@
 import { knex } from "../dbConnection";
+import { Category } from "./Category";
 
 interface ProductI {
     id: number;
@@ -14,30 +15,35 @@ interface ProductNoIdI {
     description: string;
     img_url: string;
 }
+
 export class Product {
     public id: number;
     public name: string;
     public price: number;
     public description: string;
     public img_url: string;
+    public categories: Category[];
 
-    private constructor(id: number, name: string, price: number, description: string, imgUrl: string) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.img_url = imgUrl;
+    private constructor(data: ProductI, categories: Category[]) {
+        this.id = data.id;
+        this.name = data.name;
+        this.price = data.price;
+        this.description = data.description;
+        this.img_url = data.img_url;
+        this.categories = categories;
     }
 
     private static fromI(data: ProductI) : Product {
-        return new Product(data.id, data.name, data.price, data.description, data.img_url);
+        return new Product(data, []);
     }
+
 
     public static async findByName(name: string) : Promise<Product | null> {
         const query = knex<ProductI>('products').select("*").where({ name }).first();
         const p = await query;
         if(p) {
-            return Product.fromI(p);
+            const cats = await Category.categoriesOf(p.id);
+            return new Product(p, cats);
         }
         else {
             return null;
@@ -48,7 +54,8 @@ export class Product {
         const query = knex<ProductI>('products').select("*").where({ id }).first();
         const p = await query;
         if(p) {
-            return Product.fromI(p);
+            const cats = await Category.categoriesOf(p.id);
+            return new Product(p, cats);
         }
         else {
             return null;
@@ -58,6 +65,10 @@ export class Product {
     public static async createProduct(data: ProductNoIdI) : Promise<Product> {
             const [res] = await knex<ProductI>('products').insert(data).returning("*");
             return Product.fromI(res);
+    }
+
+    public async addCategory(categoryId: number) : Promise<void> {
+        const q = await knex('product_categories').insert({ category_id: categoryId, product_id: this.id });
     }
 
 
