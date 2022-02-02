@@ -52,25 +52,47 @@
 
     <body>
         <div class="body-wrap">
-            <div class="container">
+            <h2 class="title">
+                Zawartość koszyka
+            </h2>
+            <div class="cart-container">
                 <% products.forEach( product=> { %>
-                    <div class="product">
-                        <a class="product-image" href="/product/<%= product.id %>">
-                            <!--<img src='<%= product.img_url %>' alt=<%=product.name %> > turned off for easier editing -->
+                    <div class="cart-item">
+                        <a class="cart-image" href="/products/<%= product.id %>">
+                            <img src='<%= product.img_url %>' alt=<%=product.name %> >
                         </a>
-                        <h2 class="product-name">
-                            <a href="/product/<%= product.id %>">
-                                <%= product.name %>
-                            </a>
-                        </h2>
-                        <div class="product-price">
-                            <p>
+                        <div class="cart-info">
+                            <h2>
+                                <a href="/products/<%= product.id %>">
+                                    <%= product.name %>
+                                </a>
+                            </h2>
+                            <div class="product-price">
                                 <%= product.price %>zł
-                            </p>
+                            </div>
+                            <div class="cart-remove">
+                                <form method="POST">
+                                    <button class="cart-remove"> Usuń </button>
+                                </form>
+                            </div>
                         </div>
+                        <div class="cart-info">
+                            <div class="cart-quantity">
+                                Ilość: <%= product.quantity %>
+                            </div>
+                            <div class="cart-total">
+                                Razem: <%= product.price * product.quantity %>zł
+                            </div>
 
+                        </div>
                     </div>
                     <% }); %>
+                        <div class="cart-checkout">
+                            <h2> Xzł </h2>
+                            <form method="POST">
+                                <button class="checkout-btn"> Zamów </button>
+                            </form>
+                        </div>
             </div>
         </div>
     </body>

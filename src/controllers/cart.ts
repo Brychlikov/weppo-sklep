@@ -22,11 +22,11 @@ cartRouter.get(
             if (req.signedCookies.cart) {
                 for (var prod_id of req.signedCookies.cart) {
                     var prod = await Product.findById(Number(prod_id));
-                    if(prod) products.push(prod);
+                    if (prod) products.push(prod);
                 }
             }
             // products = await Product.getAll();
-            res.render("index", { products: products }); // user : req.user
+            res.render("cart", { products: products }); // user : req.user
         })();
     },
 );
