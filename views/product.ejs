@@ -1,18 +1,31 @@
 <!-- added.ejs -->
 <%- include('templates/head') %>
+    <%- include('templates/nav') %>
 
-    <body>
-        <div class="body-wrap">
+        <body>
+            <div class="productview-container">
+                <div class="productview-image">
+                    <img src='<%= product.img_url %>' alt=<%=product.name %> >
+                </div>
+                <div class="productview-info">
+                    <h2 class="productview-name">
+                        <%= product.name %>
+                    </h2>
+                    <div class="productview-price">
+                        <%= product.price %>zł
+                    </div>
+                    <div class="product-button area">
+                        <form method="POST">
+                            <button class="cart-btn" name="button_id" value='<%= product.id %>' type="submit">Do
+                                koszyka</button>
+                            <!-- <button class="cart-btn" id='<%= product.id %>'> Do koszyka </button> -->
+                        </form>
+                    </div>
+                    <div class="productview-desc">
+                        <%= product.description %>
+                    </div>
+                </div>
+            </div>
+        </body>
 
-            <div> <img src='<%= product.img_url %>' alt=<%=product.name %> ></div>
-            <div>
-                <%= product.name %>
-            </div>
-            <div>
-                <%= product.price %>
-            </div>
-            <div>
-                <%= product.description %>
-            </div>
-        </div>
-    </body>
+        </html>
