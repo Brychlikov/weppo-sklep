@@ -1,33 +1,33 @@
 <!-- createAccount.ejs -->
 <%- include('templates/head') %>
-<%- include('templates/nav') %>
+    <%- include('templates/nav') %>
 
-<body>
-    <form method="POST">
-        <h2 class="login-title">
-            Nowe konto
-        </h2>
-        <div class="login-wrap">
+        <body>
             <form method="POST">
-                <div id='login'>
-                    <div class="form-field">
-                        <input class="form-input" type='text' name='txtUser' placeholder="Nazwa użytkownika" />
-                    </div>
-                    <div class="form-field">
-                        <input class="form-input" type='password' name='txtPwd' placeholder="Hasło" />
-                    </div>
-                    <div>
-                        <button class="login-btn">Stwórz konto</button>
-                    </div>
-                    <% if ( locals.message ) { %>
-                        <div class='incorrect-login-message'>
-                            <%= locals.message %>
+                <h1 class="title">
+                    Nowe konto
+                </h1>
+                <div class="login-wrap">
+                    <form method="POST">
+                        <div id='login'>
+                            <div class="form-field">
+                                <input class="form-input" type='text' name='txtUser' placeholder="Nazwa użytkownika" />
+                            </div>
+                            <div class="form-field">
+                                <input class="form-input" type='password' name='txtPwd' placeholder="Hasło" />
+                            </div>
+                            <div>
+                                <button class="login-btn">Stwórz konto</button>
+                            </div>
+                            <% if ( locals.message ) { %>
+                                <div class='incorrect-login-message'>
+                                    <%= locals.message %>
+                                </div>
+                                <% } %>
                         </div>
-                        <% } %>
+                    </form>
                 </div>
             </form>
-        </div>
-    </form>
-</body>
+        </body>
 
-</html>
+        </html>

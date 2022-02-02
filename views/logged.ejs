@@ -1,7 +1,15 @@
 <%- include('templates/head') %>
-<body>
-    <h2 class="login-title">
-        Zalogowano pomyślnie.
-    </h2>
-</body>
-</html>
+    <%- include('templates/nav') %>
+
+        <body>
+            <h1 class="title">
+                Zalogowano pomyślnie.
+            </h1>
+            <div>
+                <form method="POST">
+                    <button class="login-btn">Wyloguj</button>
+                </form>
+            </div>
+        </body>
+
+        </html>

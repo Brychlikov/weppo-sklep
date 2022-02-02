@@ -1,15 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap");
+
 body {
     padding: 0;
     margin: 0;
     font-family: IBM Plex Mono, monospace;
     font-size: 14px;
+    font-weight: 300;
     /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
     letter-spacing: 0.1em;
 }
 
+h2,
+h1 {
+    font-weight: 400;
+}
 button {
     font-family: IBM Plex Mono, monospace;
-    font-weight: bold;
+    font-weight: 400;
     letter-spacing: 0.1em;
     /*text-transform: uppercase;*/
     display: inline-block;
@@ -17,17 +24,27 @@ button {
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid #000;
     /*
     padding: 0.5em 2em;
     margin-top: 15px;
     line-height: 1.5;
-    */
+    
     color: #fff;
     background-color: #000;
+    */
+    background-color: #fff;
+    color: #000;
 }
 
+button:hover {
+    border: 1px solid #0084ff;
+}
 /* nav */
+
+*:focus {
+    outline: 1px solid #000;
+}
 
 .navbar {
     height: 80px;
@@ -60,7 +77,7 @@ button {
     text-decoration: none;
 }
 
-.active {
+#active.nav-h {
     border: 1px solid #000;
     padding: 0 5px;
 }
@@ -94,38 +111,42 @@ button {
 .product-image {
     background-color: #e5e5e5;
     display: block;
-    min-height: 200px;
+    /*min-height: 200px;
+    width: 100%;*/
+    height: 200px;
+    width: 250px;
+}
+
+.product-image > img {
+    object-fit: cover;
     width: 100%;
+    height: 100%;
 }
 
 .product-name {
     font-size: 14px;
-    color: #000000;
-    font-weight: normal;
-    text-decoration: none;
-
     margin: 20px 0 0 0;
     line-height: 18px;
 }
 
 .product-name a {
     color: #000000;
-    font-weight: normal;
     text-decoration: none;
 }
 
 .product-price {
-    font-weight: bold;
+    font-weight: 500;
     font-family: sans-serif;
     font-size: 14px;
 }
 
+.cart-btn {
+    padding: 0.5em 2em;
+    margin-top: 15px;
+    line-height: 1.5;
+}
 /* login */
 
-.login-title {
-    margin: 20 0 0 0;
-    text-align: center;
-}
 .login-wrap {
     text-align: center;
     padding: 1em 2em;
@@ -133,7 +154,6 @@ button {
 
 .form-input {
     font-family: IBM Plex Mono, monospace;
-    font-weight: bold;
     letter-spacing: 0.1em;
     display: inline-block;
     text-transform: uppercase;
@@ -150,7 +170,7 @@ button {
 
 .incorrect-login-message {
     display: inline-block;
-    font-weight: bold;
+    font-weight: 400;
     margin-top: 15px;
     padding-inline: 5px;
     color: #830b0b;
@@ -167,7 +187,6 @@ button {
 
 .error-message p {
     text-align: center;
-    font-weight: bold;
     margin: 2 em;
     padding: 2 em;
 }

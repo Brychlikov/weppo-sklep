@@ -9,6 +9,6 @@ export const index = Router();
 
 index.use("/", indexRouter);
 index.use("/products", uploadRouter);
-index.use("/login", userRouter)
+index.use("/login", userRouter);
 index.use("/createAccount", createAccountRouter);
 index.use("/cart", cartRouter);
