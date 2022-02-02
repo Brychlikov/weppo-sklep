@@ -56,3 +56,5 @@ CREATE TABLE users (
     password VARCHAR(200) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
+
+INSERT INTO users (name, password, role) VALUES ('admin@admin.admin', '$2b$10$cxI21rRu0FXO65iTFwRIreKmbk35Qn4/iUS1GHHZpsEYsK3wWiijO', 'Admin');
