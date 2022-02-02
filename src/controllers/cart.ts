@@ -61,6 +61,7 @@ cartRouter.get(
                     if(prod_id != previous && previous != -1){
                         var prod = await Product.findById(previous);
                         if(prod) products.push(change(prod, cnt));
+                        cnt = 0;
                     }
                     cnt++;
                     previous = prod_id;
@@ -70,8 +71,12 @@ cartRouter.get(
                     if(prod) products.push(change(prod, cnt));
                 }
             }
+            var sum = 0;
+            for(var x of products){
+                sum += x.price*x.qt;
+            }
             // products = await Product.getAll();
-            res.render("index", { products: products }); // user : req.user
+            res.render("cart", { products: products, sum : sum }); // user : req.user
         })();
     },
 );
