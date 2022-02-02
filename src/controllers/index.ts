@@ -47,9 +47,7 @@ indexRouter.post("/", authorize("Normal", "Admin"), (req: Request, res: Response
     if(addedProductId){
         var cur_cart = req.signedCookies.cart;
         if(!cur_cart) cur_cart = [];
-        console.log(addedProductId);
         cur_cart.push(addedProductId);
-        console.log(cur_cart);
         res.cookie("cart", cur_cart, {signed : true});
         res.redirect("/");
     }
