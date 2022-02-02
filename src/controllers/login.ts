@@ -18,7 +18,11 @@ function assertGet(obj: any, prop: string): string {
 }
 
 userRouter.get("/", (req: Request, res: Response) => {
-    res.render("login.ejs");
+    console.log(req.query.message);
+    if(req.query.message){
+        res.render("login.ejs", {message : req.query.message});
+    }
+    else res.render("login.ejs");
 });
 
 userRouter.post("/", (req, res) => {

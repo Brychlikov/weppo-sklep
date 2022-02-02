@@ -3,6 +3,7 @@ import { Product } from "../models/Product";
 import express from "express";
 import { authorize } from "./authorize";
 import { nextTick } from "process";
+// import { index } from "src/routes";
 
 /**
  * GET /
@@ -51,4 +52,9 @@ indexRouter.post("/", authorize("Normal", "Admin"), (req: Request, res: Response
         res.cookie("cart", cur_cart, {signed : true});
         res.redirect("/");
     }
+});
+
+
+indexRouter.post("/annonymous", (req: Request, res: Response) => {
+    res.redirect("/login?message=Zaloguj się żeby dodawać do koszyka");
 });
