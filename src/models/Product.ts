@@ -22,7 +22,7 @@ export class Product {
     public price: number;
     public description: string;
     public img_url: string;
-    public categories: Category[];
+    // public categories: Category[];
 
     private constructor(data: ProductI, categories: Category[]) {
         this.id = data.id;
@@ -30,7 +30,7 @@ export class Product {
         this.price = data.price;
         this.description = data.description;
         this.img_url = data.img_url;
-        this.categories = categories;
+        // this.categories = categories;
     }
 
     private static fromI(data: ProductI) : Product {
@@ -54,8 +54,8 @@ export class Product {
         const query = knex<ProductI>('products').select("*").where({ id }).first();
         const p = await query;
         if(p) {
-            const cats = await Category.categoriesOf(p.id);
-            return new Product(p, cats);
+            // const cats = await Category.categoriesOf(p.id);
+            return Product.fromI(p);
         }
         else {
             return null;
@@ -67,9 +67,9 @@ export class Product {
             return Product.fromI(res);
     }
 
-    public async addCategory(categoryId: number) : Promise<void> {
-        const q = await knex('product_categories').insert({ category_id: categoryId, product_id: this.id });
-    }
+    // public async addCategory(categoryId: number) : Promise<void> {
+    //     const q = await knex('product_categories').insert({ category_id: categoryId, product_id: this.id });
+    // }
 
 
     // TODO This should be paginated, but we don't have 
