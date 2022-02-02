@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import express from "express";
-import { User, User as UserModel } from "../models/User";
+import { User as UserModel } from "../models/User";
 
 export const userRouter = express.Router();
 
@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 userRouter.use(express.urlencoded({ extended: true }));
 userRouter.use(cookieParser('sgs90890s8g90as8rg90as8g9r8a0srg8'));
 
-function assertGet(obj: any, prop: string) {
+function assertGet(obj: any, prop: string) : string {
     if(prop in obj) {
         return obj[prop];
     } else {
@@ -27,25 +27,22 @@ userRouter.post('/', (req, res) => {
     var username = assertGet(req.body, "txtUser");
     var user = UserModel.findByName(username);
     if(user != null){
+        console.log(2);
         (async function () {
             var attemptedPassword = assertGet(req.body, "txtPwd");
-            result = await bcrypt.compare(attemptedPassword, UserModel.getUsersPassword(username));
+            var password = await UserModel.getUsersPassword(username);
+            result = await bcrypt.compare(attemptedPassword, password);
             if (result) {
                 res.cookie('user', username, { signed: true });
                 var returnUrl = req.query.returnUrl;
-                // res.redirect('/');
-                res.render('logged.ejs');
+                res.redirect('/');
             } else {
                 res.render('login.ejs', { message: "nieprawidłowe hasło lub nazwa użytkownika" });
             }
         })();
     }else{
-<<<<<<< HEAD
-        res.render('login.ejs', { message: "Zła nazwa logowania lub hasło" });
-=======
         console.log(4);
         res.render('login.ejs', { message: "nieprawidłowe hasło lub nazwa użytkownika" });
->>>>>>> c056caf (basic styling)
     }
 });
 

@@ -41,18 +41,18 @@ export class User {
         }
     }
     
-    public static async getUsersPassword(name : string){
+    public static async getUsersPassword(name : string) : Promise<string> {
         const query = knex<UserI>('users').select("password").where({ name }).first();
         const p = await query;
         if(p){
-            return p;
+            return p.password;
         }else{
             return "";
         }
     }
-    
+
     public static async addUser(data : UserNoIdI) {
-        const [res] = await knex<UserI>('users').insert(data).returning("*");
-        return User.fromI(res);
+        const res = await knex<UserI>('users').insert(data).returning("*");
+        return res.map(User.fromI);
     }
 }

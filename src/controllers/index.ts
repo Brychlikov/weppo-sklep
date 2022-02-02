@@ -1,21 +1,30 @@
 import { Request, Response } from "express";
 import { Product } from "../models/Product";
+import express from "express";
+import { authorize } from "./authorize";
 
 /**
  * GET /
  * Home page.
  */
 
-export const index = async (req: Request, res: Response): Promise<void> => {
-    // const products = [
-    //     { id: 0, name: "cygan", price: 12, description: "to jest cygan" },
-    //     { id: 1, name: "bodzio", price: 15, description: "taki o bodź" },
-    // ];
-    const products = await Product.getAll();
-    console.log(products);
+export const indexRouter = express.Router();
+var cookieParser = require('cookie-parser');
+indexRouter.use(express.urlencoded({ extended: true }));
+indexRouter.use(cookieParser('sgs90890s8g90as8rg90as8g9r8a0srg8'));
 
+// TODO : remove express.js logic from controller to route handler
+// TODO2 : maybe not
+indexRouter.get("/", authorize("Normal","Admin"), (req: Request, res: Response) => {
+    (async function () {
+        const products = await Product.getAll();
+        res.render("index", { products: products, user : req.signedCookies.user}); // user : req.user
+    })()
+});
 
-    // TODO : remove express.js logic from controller to route handler
-    // TODO2 : maybe not
-    res.render("index", { products: products });
-};
+indexRouter.get("/annonymous", (req, res) => {
+    (async function () {
+        const products = await Product.getAll();
+        res.render("index", { products: products}); // user : req.user
+    })()
+})
