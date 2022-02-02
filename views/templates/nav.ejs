@@ -1,49 +1,71 @@
 <nav class="navbar">
     <div class="nav-left">
         <div class="nav-element">
-            <h2 class="nav-h">
-                <a href="/"> SKLEP </a>
-            </h2>
+            <h2 class="nav-h"> <a href="/"> SKLEP </a> </h2>
         </div>
     </div>
     <div class="nav-mid">
         <div class="nav-element">
-
-            <h2 class="nav-h">
-                <a href="/"> Produkty </a>
-            </h2>
-
+            <% if (url=="/" ) { %>
+                <h2 class="nav-h" id="active">
+                    <% } else { %>
+                        <h2 class="nav-h">
+                            <% } %>
+                                <a href="/">
+                                    Produkty
+                                </a>
+                        </h2>
         </div>
         <div class="nav-element">
-
-            <h2 class="nav-h">
-                <a href="/"> Szukaj </a>
-            </h2>
-
+            <% if (url=="/search" ) { %>
+                <h2 class="nav-h" id="active">
+                    <% } else { %>
+                        <h2 class="nav-h">
+                            <% } %>
+                                <a href="/search">
+                                    Szukaj
+                                </a>
+                        </h2>
         </div>
     </div>
-    <div class="nav-right">
-        <% if ( locals.user ) { %>
-            <div class="nav-element">
-                <div id='cart'>
-                    <h2 class="nav-h">
-                        <a href="/cart"> Koszyk </a>
-                    </h2>
-                </div>
 
+    <% if (locals.user) { %>
+        <div class="nav-right">
+            <div class="nav-element">
+                <% if (url=="/cart" ) { %>
+                    <h2 class="nav-h" id="active">
+                        <% } else { %>
+                            <h2 class="nav-h">
+                                <% } %>
+                                    <a href="/cart"> Koszyk( <% cart_item_count %> ) </a>
+                            </h2>
             </div>
             <div class="nav-element">
-                <h2 class="nav-h">
-                    <a href="/logged"> Konto </a>
-                </h2>
+                <% if (url=="/login" ) { %>
+                    <h2 class="nav-h" id="active">
+                        <% } else { %>
+                            <h2 class="nav-h">
+                                <% } %>
+                                    <a href="/login">
+                                        Konto <% locals.user %>
+                                    </a>
+                            </h2>
             </div>
-            <% } else {%>
 
+            <% } else { %>
                 <div class="nav-element">
-                    <h2 class="nav-h">
-                        <a href="/login"> Logowanie </a>
-                    </h2>
+                    <% if (url=="/login" ) { %>
+                        <h2 class="nav-h" id="active">
+                            <% } else { %>
+                                <h2 class="nav-h">
+                                    <% } %>
+                                        <a href="/login">
+                                            Logowanie
+                                        </a>
+                                </h2>
                 </div>
+
                 <% } %>
-    </div>
+        </div>
+
 </nav>

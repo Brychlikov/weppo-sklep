@@ -8,40 +8,45 @@ export const createAccountRouter = express.Router();
 createAccountRouter.use(express.urlencoded({ extended: true }));
 
 function assertGet(obj: any, prop: string) {
-    if(prop in obj) {
+    if (prop in obj) {
         return obj[prop];
     } else {
         throw new Error(`failed to get ${prop} on object`);
     }
 }
 
-createAccountRouter.get('/', (req: Request, res: Response) => {
-    res.render('createAccount.ejs', { url : "/createAccount", cart_item_count : req.signedCookies.cart_item_count,
-    message : req.query.message });
+createAccountRouter.get("/", (req: Request, res: Response) => {
+    res.render("createAccount.ejs", {
+        url: "/createAccount",
+        cart_item_count: req.signedCookies.cart_item_count,
+        message: req.query.message,
+    });
 });
 
-function validateEmail(email : string) : boolean{
-        const re = /\S+@\S+\.\S+/;
-        return re.test(email);
+function validateEmail(email: string): boolean {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
 }
 
-createAccountRouter.post('/', (req, res) => {
+createAccountRouter.post("/", (req, res) => {
     const userData: any = {};
     userData.name = assertGet(req.body, "txtUser");
-    if(!validateEmail(userData.name)){
+    if (!validateEmail(userData.name)) {
         res.redirect("/createAccount?message=Niepoprawny email");
     }
-    userData.role = 'Normal';
+    userData.role = "Normal";
     const password = assertGet(req.body, "txtPwd");
     (async function () {
         const check_if_exists = await User.findByName(userData.name);
-        if(check_if_exists != null){
-            res.redirect("/createAccount?message=Na ten email istnieje już konto");
+        if (check_if_exists != null) {
+            res.redirect(
+                "/createAccount?message=Na ten email istnieje już konto",
+            );
         }
         userData.password = await hash(password, 10);
         const d = await User.addUser(userData);
         res.cookie("user", userData.name, { signed: true });
-        res.cookie("cart_item_count", 0, { signed : true });
+        res.cookie("cart_item_count", 0, { signed: true });
         res.redirect("/");
     })();
 });

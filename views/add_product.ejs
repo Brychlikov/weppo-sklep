@@ -1,6 +1,6 @@
 <!-- add_product.ejs -->
 <%- include('templates/head') %>
-    <%- include('templates/nav') %>
+    <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
             <form method="POST" action="/products/new" enctype="multipart/form-data">
@@ -14,4 +14,4 @@
         </body>
 
 
-</html>
+        </html>

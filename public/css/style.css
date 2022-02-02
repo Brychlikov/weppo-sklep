@@ -44,8 +44,13 @@ button:hover {
 }
 /* nav */
 
-*:focus {
+input:focus,
+button:focus {
     outline: 1px solid #000;
+}
+
+li {
+    list-style-type: none;
 }
 
 .navbar {
@@ -274,25 +279,6 @@ button:hover {
     flex-direction: column;
 }
 
-.cart-checkout {
-    background-color: #0084ff;
-    margin: auto;
-    align-self: flex-end;
-    display: flex;
-}
-.cart-checkout h2 {
-    flex: 1 1 auto;
-}
-.cart-checkout form {
-    margin: auto;
-    display: block;
-    flex: 1 1 auto;
-    padding: 20px;
-}
-
-.checkout-btn {
-    width: 100%;
-}
 .cart-item {
     flex: 1 1 auto;
     display: flex;
@@ -336,6 +322,41 @@ button:hover {
     margin-top: 30px;
     margin-bottom: 10px;
 }
+/* cart checkout */
+
+.cart-checkout {
+    margin: 20px auto auto;
+    align-self: flex-end;
+    display: flex;
+}
+.checkout-price {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.checkout-price p {
+    margin: 21px 15px;
+    padding: 0;
+}
+
+.checkout-price h2 {
+    font-weight: bold;
+    margin: 15px;
+    padding: 0;
+}
+
+.cart-checkout form {
+    flex: 1 1 auto;
+}
+
+.checkout-btn {
+    margin: 0px 20px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    font-size: 18px;
+}
+
 /* error */
 
 .error-message p {
