@@ -6,10 +6,12 @@ body {
     font-family: IBM Plex Mono, monospace;
     font-size: 14px;
     font-weight: 300;
-    /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
     letter-spacing: 0.1em;
 }
 
+input {
+    font-family: IBM Plex Mono, monospace;
+}
 h2,
 h1 {
     font-weight: 400;
@@ -20,7 +22,7 @@ button {
     letter-spacing: 0.1em;
     /*text-transform: uppercase;*/
     display: inline-block;
-    font-size: 14px;
+
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -145,6 +147,45 @@ button:hover {
     margin-top: 15px;
     line-height: 1.5;
 }
+
+/* search */
+.search-parent {
+    margin: auto;
+    width: 50%;
+}
+.search-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    height: 50px;
+    padding: 20px;
+
+    font-size: 18x;
+}
+
+.search-container input {
+    font-size: 18x;
+    flex: 6 1 auto;
+    padding-bottom: 9px;
+    line-height: 1.5em;
+    color: #000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+}
+
+.search-container input:focus {
+    outline: 0 !important;
+}
+.search-container button {
+    font-size: 16px;
+    padding: 7px;
+    margin-left: 15px;
+}
 /* login */
 
 .login-wrap {
@@ -156,7 +197,6 @@ button:hover {
     font-family: IBM Plex Mono, monospace;
     letter-spacing: 0.1em;
     display: inline-block;
-    text-transform: uppercase;
     width: 400px;
     height: 30px;
     padding: 6px 12px;
@@ -178,6 +218,7 @@ button:hover {
 }
 
 .login-btn {
+    font-size: 14px;
     padding: 0.5em 2em;
     margin-top: 15px;
     line-height: 1.5;
