@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import express from "express";
 import { User as UserModel } from "../models/User";
-import bcrypt from "bcrypt";
+import { compare } from "bcrypt";
 import cookieParser from "cookie-parser";
-
+import process from "process";
 export const userRouter = express.Router();
 
 userRouter.use(express.urlencoded({ extended: true }));
-userRouter.use(cookieParser("sgs90890s8g90as8rg90as8g9r8a0srg8"));
+userRouter.use(cookieParser(process.env.COOKIE_SECRET));
 
 function assertGet(obj: any, prop: string): string {
     if (prop in obj) {
@@ -20,9 +20,10 @@ function assertGet(obj: any, prop: string): string {
 userRouter.get("/", (req: Request, res: Response) => {
     console.log(req.query.message);
     if(req.query.message){
-        res.render("login.ejs", { message : req.query.message });
+        res.render("login.ejs", { message : req.query.message, url : "/login", 
+        cart_item_count : req.signedCookies.cart_item_count });
     }
-    else res.render("login.ejs");
+    else res.render("login.ejs", { url : "/login", cart_item_count : req.signedCookies.cart_item_count });
 });
 
 userRouter.post("/", (req, res) => {
@@ -30,29 +31,28 @@ userRouter.post("/", (req, res) => {
     const username = assertGet(req.body, "txtUser");
     const user = UserModel.findByName(username);
     if (user != null) {
-        console.log(2);
         (async function () {
             const attemptedPassword = assertGet(req.body, "txtPwd");
             const password = await UserModel.getUsersPassword(username);
-            result = await bcrypt.compare(attemptedPassword, password);
+            result = await compare(attemptedPassword, password);
             if (result) {
                 res.cookie("user", username, { signed: true });
+                res.cookie("cart_item_count", 0, { signed : true });
                 const returnUrl = req.query.returnUrl;
                 res.redirect("/");
             } else {
                 res.render("login.ejs", {
                     message: "nieprawidłowe hasło lub nazwa użytkownika",
+                    url : "/login",
+                    cart_item_count : req.signedCookies.cart_item_count,
                 });
             }
         })();
     } else {
-        console.log(4);
         res.render("login.ejs", {
             message: "nieprawidłowe hasło lub nazwa użytkownika",
+            url : "/login",
+            cart_item_count : req.signedCookies.cart_item_count,
         });
     }
-});
-
-userRouter.get("/logged", (req, res) => {
-    res.render("logged.ejs");
 });

@@ -3,16 +3,16 @@ import { Product } from "../models/Product";
 import express from "express";
 import { authorize } from "./authorize";
 import { count } from "console";
-
+import process from "process";
+import cookieParser from "cookie-parser";
 /**
  * GET /
  * Home page.
  */
 
 export const cartRouter = express.Router();
-var cookieParser = require("cookie-parser");
 cartRouter.use(express.urlencoded({ extended: true }));
-cartRouter.use(cookieParser("sgs90890s8g90as8rg90as8g9r8a0srg8"));
+cartRouter.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 interface ProductWithCount {
@@ -24,14 +24,14 @@ interface ProductWithCount {
     qt : number;
 }
 class ProductWithCount {
-    public id : number
+    public id : number;
     public name: string;
     public price: number;
     public description: string;
     public img_url: string;
 }
 function change(prod : Product, cnt : number) : ProductWithCount{
-    var ret = new ProductWithCount();
+    const ret = new ProductWithCount();
     ret.id = prod.id;
     ret.name = prod.name;
     ret.price = prod.price;
@@ -45,21 +45,21 @@ cartRouter.get(
     authorize("Admin", "Normal"),
     (req: Request, res: Response) => {
         (async function () {
-            var products = [];
-            let prod_cnt = {};
+            const products = [];
+            const prod_cnt = {};
             if (req.signedCookies.cart) {
-                var pom = req.signedCookies.cart;
+                const pom = req.signedCookies.cart;
                 pom.map(Number);
-                pom.sort((a : Number, b : Number)=>{
+                pom.sort((a : number, b : number)=>{
                     if(a < b) return -1;
                     if(a > b) return 1;
                     return 0;
                 });
-                var previous = -1;
-                var cnt = 0;
-                for (var prod_id of pom) {
+                let previous = -1;
+                let cnt = 0;
+                for (const prod_id of pom) {
                     if(prod_id != previous && previous != -1){
-                        var prod = await Product.findById(previous);
+                        const prod = await Product.findById(previous);
                         if(prod) products.push(change(prod, cnt));
                         cnt = 0;
                     }
@@ -67,16 +67,17 @@ cartRouter.get(
                     previous = prod_id;
                 }
                 if(previous != -1){
-                    var prod = await Product.findById(previous);
+                    const prod = await Product.findById(previous);
                     if(prod) products.push(change(prod, cnt));
                 }
             }
-            var sum = 0;
-            for(var x of products){
+            let sum = 0;
+            for(const x of products){
                 sum += x.price*x.qt;
             }
             // products = await Product.getAll();
-            res.render("cart", { products: products, sum : sum }); // user : req.user
+            res.render("cart", { products: products, sum : sum, url : "/cart", 
+            cart_item_count : req.signedCookies.cart_item_count }); // user : req.user
         })();
     },
 );

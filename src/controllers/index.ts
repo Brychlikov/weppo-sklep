@@ -23,6 +23,8 @@ indexRouter.get("/", authorize("Normal", "Admin"), (req: Request, res: Response)
             res.render("index", {
                 products: products,
                 user: req.signedCookies.user,
+                url : "/",
+                cart_item_count : req.signedCookies.cart_item_count,
             }); // user : req.user
         })();
     },
@@ -31,7 +33,8 @@ indexRouter.get("/", authorize("Normal", "Admin"), (req: Request, res: Response)
 indexRouter.get("/annonymous", (req, res) => {
     (async function () {
         const products = await Product.getAll();
-        res.render("index", { products: products }); // user : req.user
+        res.render("index", { products: products, url : "/annonymous", 
+        cart_item_count : req.signedCookies.cart_item_count });
     })();
 });
 
@@ -46,6 +49,8 @@ function assertGet(obj: any, prop: string): string {
 indexRouter.post("/", authorize("Normal", "Admin"), (req: Request, res: Response) => {
     const addedProductId = req.body.button_id;
     if(addedProductId){
+        res.cookie("cart_item_count", Number(req.signedCookies.cart_item_count) + 1, { signed : true });
+        console.log(Number(req.signedCookies.cart_item_count) + 1);
         let cur_cart = req.signedCookies.cart;
         if(!cur_cart) cur_cart = [];
         cur_cart.push(addedProductId);

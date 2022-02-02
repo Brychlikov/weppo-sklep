@@ -5,7 +5,7 @@ export function authorize(...args: string[]) {
         if (req.signedCookies.user) {
             req.user = req.signedCookies.user;
             (async function () {
-                var user = await User.findByName(req.user);
+                const user = await User.findByName(req.user);
                 if (user == null || !args.includes(user.role)) {
                     // res.redirect('/login?returnUrl=' + req.url);
                     res.redirect("/annonymous");
