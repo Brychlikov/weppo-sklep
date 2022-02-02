@@ -85,6 +85,7 @@ cartRouter.get(
 
 cartRouter.post("/", authorize("Normal", "Admin"), (req : Request, res : Response) => {
     const deletedProductId = req.body.remove_button_id;
+    console.log(deletedProductId);
     if(deletedProductId){
         let cnt = 0;
         const cur_cart = [];
