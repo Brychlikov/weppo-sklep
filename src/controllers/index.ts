@@ -3,6 +3,7 @@ import { Product } from "../models/Product";
 import express from "express";
 import { authorize } from "./authorize";
 import { nextTick } from "process";
+import cookieParser from "cookie-parser";
 // import { index } from "src/routes";
 
 /**
@@ -11,7 +12,6 @@ import { nextTick } from "process";
  */
 
 export const indexRouter = express.Router();
-var cookieParser = require("cookie-parser");
 indexRouter.use(express.urlencoded({ extended: true }));
 indexRouter.use(cookieParser("sgs90890s8g90as8rg90as8g9r8a0srg8"));
 
@@ -44,12 +44,12 @@ function assertGet(obj: any, prop: string): string {
 }
 
 indexRouter.post("/", authorize("Normal", "Admin"), (req: Request, res: Response) => {
-    var addedProductId = req.body.button_id;
+    const addedProductId = req.body.button_id;
     if(addedProductId){
-        var cur_cart = req.signedCookies.cart;
+        let cur_cart = req.signedCookies.cart;
         if(!cur_cart) cur_cart = [];
         cur_cart.push(addedProductId);
-        res.cookie("cart", cur_cart, {signed : true});
+        res.cookie("cart", cur_cart, { signed : true });
         res.redirect("/");
     }
 });

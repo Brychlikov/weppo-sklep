@@ -4,6 +4,7 @@ import express from "express";
 import path from "path";
 import { Product } from "../models/Product";
 import { authorize } from "./authorize";
+import { body, validationResult } from "express-validator";
 
 function uniqueFilename() : string{
     return Date.now().toString() + Math.round(Math.random() * 1e7).toString();
@@ -34,9 +35,11 @@ function assertGet(obj: any, prop: string) {
     }
 }
 
+
 declare module 'express-session' {
     interface SessionData {
         productName: string,
+        productPrice: number,
     }
 }
 
@@ -44,7 +47,17 @@ productsRouter.get('/add', (req: Request, res: Response) => {
     res.render('add_product');
 });
 
-productsRouter.post('/new', upload.single('productImage'), async (req: Request, res: Response) => {
+productsRouter.post(
+    '/new', 
+    upload.single('productImage'), 
+    body('price').isNumeric(),
+    async (req: Request, res: Response) => 
+{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.redirect('add');
+        return;
+    }
     console.log(req.file);
     const prodData: any = {};
     prodData.name = assertGet(req.body, "name");
@@ -58,11 +71,11 @@ productsRouter.post('/new', upload.single('productImage'), async (req: Request, 
 
 productsRouter.get("/:id", (req, res) => {
     (async function () {
-        var prod = await Product.findById(Number(req.params.id));
+        const prod = await Product.findById(Number(req.params.id));
         if(req.signedCookies.user){
-            res.render('product', {product : prod, user : req.signedCookies.user});
+            res.render('product', { product : prod, user : req.signedCookies.user });
         }else{
-            res.render('product', {product : prod});
+            res.render('product', { product : prod });
         }
     })();
 });
