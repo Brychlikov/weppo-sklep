@@ -1,49 +1,10 @@
-<!-- login.ejs -->
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        html,
-        body,
-        form {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #login {
-            padding: 20px;
-            border: 1px solid black;
-        }
-
-        #login div {
-            overflow: auto;
-        }
-
-        #login input {
-            float: right;
-        }
-
-        button {
-            clear: both;
-        }
-
-        .message {
-            color: red;
-        }
-    </style>
-</head>
+<!-- createAccount.ejs -->
+<%- include('templates/head') %>
+<%- include('templates/nav') %>
 
 <body>
     <form method="POST">
+<<<<<<< HEAD
         <div id='createAccount'>
             <div>
                 Stwórz konto
@@ -62,8 +23,30 @@
             <% if ( locals.message ) { %>
                 <div class='message'>
                     <%= locals.message %>
+=======
+        <h2 class="login-title">
+            Nowe konto
+        </h2>
+        <div class="login-wrap">
+            <form method="POST">
+                <div id='login'>
+                    <div class="form-field">
+                        <input class="form-input" type='text' name='txtUser' placeholder="Nazwa użytkownika" />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-input" type='password' name='txtPwd' placeholder="Hasło" />
+                    </div>
+                    <div>
+                        <button class="login-btn">Stwórz konto</button>
+                    </div>
+                    <% if ( locals.message ) { %>
+                        <div class='incorrect-login-message'>
+                            <%= locals.message %>
+                        </div>
+                        <% } %>
+>>>>>>> c056caf (basic styling)
                 </div>
-                <% } %>
+            </form>
         </div>
     </form>
 </body>

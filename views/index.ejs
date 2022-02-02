@@ -1,31 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('templates/head') %>
+<!--<%- include('templates/nav') %>-->
+<nav class="navbar">
+    <div class="nav-right">
+        </div>
+    <div class="nav-mid">
+        <div class="nav-element">
 
-<head>
-    <%- include ("./templates/head"); %>
-</head>
+            <h2 class="nav-h">
+                <div class="active">
+                <a href="/"> Produkty </a>
+                </div>    </h2>
 
-<body>
-    <div class="body-wrap">
-        <h2>
-            Produkty
-        </h2>
-        <div class="flex-container">
-            <% products.forEach( product=> { %>
-                <div class="product">
-                    <a href="/product/<%= product.id %>">
-                        <img src='<%= product.img_url %>' alt=<%=product.name %> >
-                    </a>
-                    <div>
-                        <%= product.name %>
-                    </div>
-                    <div>
-                        <%= product.price %> zł
-                    </div>
-                </div>
-                <% }); %>
+        </div>
+        <div class="nav-element">
+
+            <h2 class="nav-h">
+                <a href="/"> Szukaj </a>
+</h2>
+
         </div>
     </div>
-</body>
+    <div class="nav-right">
+        <% if ( locals.user ) { %>
+            <div class="nav-element">
+                <div id='cart'>
+                    <h2 class="nav-h">
+                        <a href="/cart"> Koszyk </a>
+                    </h2>
+                </div>
 
-</html>
+            </div>
+            <div class="nav-element">
+                <h2 class="nav-h">
+                <a href="/login"> Konto </a>
+            </h2>
+            </div>
+            <% } else {%>
+
+        <div class="nav-element">
+            <h2 class="nav-h">
+            <a href="/login"> Logowanie </a>
+        </h2>
+        </div>
+        <% } %>
+    </div>
+</nav>
+    <body>
+                <div class="body-wrap">
+                    <div class="container">
+                        <% products.forEach( product=> { %>
+                            <div class="product">
+                                <a class="product-image" href="/product/<%= product.id %>">
+                                    <!--<img src='<%= product.img_url %>' alt=<%=product.name %> > turned off for easier editing -->
+                                </a>
+                                <h2 class="product-name">
+                                    <a href="/product/<%= product.id %>">
+                                        <%= product.name %>
+                                    </a>
+                                </h2>
+                                <div class="product-price">
+                                    <p>
+                                        <%= product.price %>zł
+                                    </p>
+                                </div>
+
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+    </body>
+
+    </html>

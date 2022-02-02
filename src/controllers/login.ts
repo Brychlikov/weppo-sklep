@@ -36,11 +36,16 @@ userRouter.post('/', (req, res) => {
                 // res.redirect('/');
                 res.render('logged.ejs');
             } else {
-                res.render('login.ejs', { message: "Zła nazwa logowania lub hasło" });
+                res.render('login.ejs', { message: "nieprawidłowe hasło lub nazwa użytkownika" });
             }
         })();
     }else{
+<<<<<<< HEAD
         res.render('login.ejs', { message: "Zła nazwa logowania lub hasło" });
+=======
+        console.log(4);
+        res.render('login.ejs', { message: "nieprawidłowe hasło lub nazwa użytkownika" });
+>>>>>>> c056caf (basic styling)
     }
 });
 

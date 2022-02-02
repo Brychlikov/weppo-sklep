@@ -1,0 +1,30 @@
+<nav class="navbar">
+    <div class="nav-right">
+        </div>
+    <div class="nav-mid">
+        <div class="nav-element">
+            <h2 class="nav-h">
+            <a href="/"> Produkty </a>
+        </h2>
+        </div>
+    </div>
+    <div class="nav-right">
+        <% if ( locals.user ) { %>
+            <div class="nav-element">
+                <div id='cart'>
+                    <h2 class="nav-h">
+                        <a href="/cart"> Koszyk </a>
+                    </h2>
+                </div>
+
+            </div>
+
+            <% } %>
+
+        <div class="nav-element">
+            <h2 class="nav-h">
+            <a href="/login"> Logowanie </a>
+        </h2>
+        </div>
+    </div>
+</nav>

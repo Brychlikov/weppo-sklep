@@ -1,78 +1,78 @@
 <!-- login.ejs -->
-<!DOCTYPE html>
-<html lang="en">
+<%- include('templates/head') %>
+<!--<%- include('templates/nav') %>-->
+<nav class="navbar">
+    <div class="nav-right">
+        </div>
+    <div class="nav-mid">
+        <div class="nav-element">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        html,
-        body,
-        form {
-            height: 100%;
-            overflow: hidden;
-        }
+            <h2 class="nav-h">
 
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+                <a href="/"> Produkty </a>
+                 </h2>
 
-        #login {
-            padding: 20px;
-            border: 1px solid black;
-        }
+        </div>
+        <div class="nav-element">
 
-        #login div {
-            overflow: auto;
-        }
+            <h2 class="nav-h">
+                
+                <a href="/"> Szukaj </a>
+</h2>
 
-        #login input {
-            float: right;
-        }
-
-        button {
-            clear: both;
-        }
-
-        .message {
-            color: red;
-        }
-    </style>
-</head>
-
-<body>
-    <form method="POST">
-        <div id='login'>
-            <div>
-                Logowanie
-            </div>
-            <div>
-                <input type='text' name='txtUser' />
-                <label>Nazwa użytkownika:</label>
-            </div>
-            <div>
-                <input type='password' name='txtPwd' />
-                <label>Hasło:</label>
-            </div>
-            <div>
-                <button>Zaloguj</button>
-            </div>
-            <% if ( locals.message ) { %>
-                <div class='message'>
-                    <%= locals.message %>
+        </div>
+    </div>
+    <div class="nav-right">
+        <% if ( locals.user ) { %>
+            <div class="nav-element">
+                <div id='cart'>
+                    <h2 class="nav-h">
+                        <a href="/cart"> Koszyk </a>
+                    </h2>
                 </div>
-                <% } %>
-        </div>
-    </form>
-    <form method="POST">
-        <div id='createAccount'>
-            <div>
-                <button>Stwórz konto</button>
-            </div>
-        </div>
-    </form>
-</body>
 
-</html>
+            </div>
+
+            <% } %>
+
+        <div class="nav-element">
+            <h2 class="nav-h">
+                <div class="active">
+            <a href="/login"> Logowanie </a>
+                </div>
+        </h2>
+        </div>
+    </div>
+</nav>
+
+    <body>
+        <div class="login-wrap">
+            <form method="POST">
+                <div id='login'>
+                    <div class="form-field">
+                        <input class="form-input" type='text' name='txtUser' placeholder="Nazwa użytkownika" />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-input" type='password' name='txtPwd' placeholder="Hasło" />
+                    </div>
+                    <div>
+                        <button class="login-btn">Zaloguj się</button>
+                    </div>
+                    <% if ( locals.message ) { %>
+                        <div class='incorrect-login-message'>
+                            <%= locals.message %>
+                        </div>
+                        <% } %>
+                </div>
+            </form>
+            <form action="/createAccount">
+                <div id='createAccount'>
+                    <div>
+                        <button class="login-btn">Stwórz konto</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    </html>
