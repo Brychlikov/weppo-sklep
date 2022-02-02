@@ -5,6 +5,7 @@ import path from "path";
 import { Product } from "../models/Product";
 import { authorize } from "./authorize";
 import { body, validationResult } from "express-validator";
+import session from "express-session";
 
 function uniqueFilename() : string{
     return Date.now().toString() + Math.round(Math.random() * 1e7).toString();
@@ -35,34 +36,67 @@ function assertGet(obj: any, prop: string) {
     }
 }
 
+interface ProductSession {
+    name: string,
+    price: string,
+    description: string
+    error: string | null
+}
 
 declare module 'express-session' {
     interface SessionData {
-        productName: string,
-        productPrice: number,
+        productSession: ProductSession
     }
 }
 
 productsRouter.get('/add', (req: Request, res: Response) => {
-    res.render('add_product');
+    const name = req.session.productSession?.name;
+    const price = req.session.productSession?.price;
+    const description = req.session.productSession?.description;
+    const error = req.session.productSession?.error;
+    res.render('add_product', { name, price, description, error });
 });
 
 productsRouter.post(
     '/new', 
     upload.single('productImage'), 
-    body('price').isNumeric(),
+    body('name').notEmpty().withMessage("Nazwa nie może być pusta"),
+    body('price').isNumeric().withMessage("Cena powinna być liczbą"),
+    body('description').notEmpty().withMessage("Opis nie może być pusty"),
     async (req: Request, res: Response) => 
 {
+    const prodData: any = {};
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const description = req.body.description;
+    prodData.name = name;
+    prodData.price = price;
+    prodData.description = description;
+
+    req.session.productSession = { name, price, description, error: null };
+
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.redirect('add');
+    if (!errors.isEmpty() || req.file == null) {
+        let message = "";
+        for (const err of errors.array()) {
+            message += `${err.msg}\n`;
+        }
+
+        if ( req.file == null) {
+            message += "Obrazek jest wymagany";
+        }
+
+        req.session.productSession.error = message;
+        req.session.save(err => {
+            if (err) {
+                console.log("error when writing to session", err);
+            } else {
+                res.redirect("add");
+            }
+        });
         return;
     }
-    console.log(req.file);
-    const prodData: any = {};
-    prodData.name = assertGet(req.body, "name");
-    prodData.price = assertGet(req.body, "price");
-    prodData.description = assertGet(req.body, "description");
     const imgUrl = req.file?.path.substring(req.file?.path.indexOf('/'));
     prodData.img_url = imgUrl;
     const _p = await Product.createProduct(prodData);

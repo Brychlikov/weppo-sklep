@@ -17,6 +17,9 @@ export const app = express();
 app.use(express.urlencoded({ extended: true }));
 // Express configuration
 
+// disable caching for now
+app.disable("etag");
+
 app.use(session({
     store: new pgSession({
         pool,
