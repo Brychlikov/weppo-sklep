@@ -23,7 +23,7 @@ const storage = multer.diskStorage ({
 
 const upload = multer({ storage });
 
-export const uploadRouter = express.Router();
+export const productsRouter = express.Router();
 
 function assertGet(obj: any, prop: string) {
     if(prop in obj) {
@@ -33,19 +33,17 @@ function assertGet(obj: any, prop: string) {
     }
 }
 
-
 declare module 'express-session' {
     interface SessionData {
         productName: string,
     }
 }
 
-uploadRouter.get('/add', (req: Request, res: Response) => {
-    const productName = req.session.productName || "";
-    res.render('add_product', { productName });
+productsRouter.get('/add', (req: Request, res: Response) => {
+    res.render('add_product');
 });
 
-uploadRouter.post('/new', upload.single('productImage'), async (req: Request, res: Response) => {
+productsRouter.post('/new', upload.single('productImage'), async (req: Request, res: Response) => {
     console.log(req.file);
     const prodData: any = {};
     prodData.name = assertGet(req.body, "name");
@@ -57,5 +55,10 @@ uploadRouter.post('/new', upload.single('productImage'), async (req: Request, re
     res.render('products/added');
 });
 
-
+productsRouter.get("/:id", (req, res) => {
+    (async function () {
+        var prod = await Product.findById(Number(req.params.id));
+        res.render('product', {product : prod});
+    })();
+});
 

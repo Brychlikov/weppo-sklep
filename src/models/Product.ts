@@ -44,6 +44,17 @@ export class Product {
         }
     }
 
+    public static async findById(id: number) : Promise<Product | null> {
+        const query = knex<ProductI>('products').select("*").where({ id }).first();
+        const p = await query;
+        if(p) {
+            return Product.fromI(p);
+        }
+        else {
+            return null;
+        }
+    }
+
     public static async createProduct(data: ProductNoIdI) : Promise<Product> {
             const [res] = await knex<ProductI>('products').insert(data).returning("*");
             return Product.fromI(res);

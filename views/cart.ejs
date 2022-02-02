@@ -11,7 +11,7 @@
         <div class="nav-mid">
             <div class="nav-element">
 
-                <h2 class="nav-h" id="active">
+                <h2 class="nav-h">
                     <a href="/"> Produkty </a>
                 </h2>
 
@@ -19,7 +19,7 @@
             <div class="nav-element">
 
                 <h2 class="nav-h">
-                    <a href="/search"> Szukaj </a>
+                    <a href="/"> Szukaj </a>
                 </h2>
 
             </div>
@@ -28,7 +28,7 @@
             <% if ( locals.user ) { %>
                 <div class="nav-element">
                     <div id='cart'>
-                        <h2 class="nav-h">
+                        <h2 class="nav-h" id="active">
                             <a href="/cart"> Koszyk </a>
                         </h2>
                     </div>
@@ -55,27 +55,20 @@
             <div class="container">
                 <% products.forEach( product=> { %>
                     <div class="product">
-                        <a class="product-image" href="/products/<%= product.id %>">
-                            <img src='<%= product.img_url %>' alt=<%=product.name %> >
+                        <a class="product-image" href="/product/<%= product.id %>">
+                            <!--<img src='<%= product.img_url %>' alt=<%=product.name %> > turned off for easier editing -->
                         </a>
-                        <div class="product-label">
-                            <h2 class="product-name">
-                                <a href="/products/<%= product.id %>">
-                                    <%= product.name %>
-                                </a>
-                            </h2>
-                            <div class="product-price">
-                                <p>
-                                    <%= product.price %>zł
-                                </p>
-                            </div>
-                            <div class="product-button area">
-                                <form method="POST">
-                                    <button class="cart-btn" name="button_id" value='<%= product.id %>' type="submit">Do koszyka</button>
-                                    <!-- <button class="cart-btn" id='<%= product.id %>'> Do koszyka </button> -->
-                                </form>
-                            </div>
+                        <h2 class="product-name">
+                            <a href="/product/<%= product.id %>">
+                                <%= product.name %>
+                            </a>
+                        </h2>
+                        <div class="product-price">
+                            <p>
+                                <%= product.price %>zł
+                            </p>
                         </div>
+
                     </div>
                     <% }); %>
             </div>

@@ -1,9 +1,233 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap");
+
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: IBM Plex Mono, monospace;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
 }
 
-a {
-    color: #00B7FF;
+input {
+    font-family: IBM Plex Mono, monospace;
+}
+h2,
+h1 {
+    font-weight: 400;
+}
+button {
+    font-family: IBM Plex Mono, monospace;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    /*text-transform: uppercase;*/
+    display: inline-block;
+
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #000;
+    /*
+    padding: 0.5em 2em;
+    margin-top: 15px;
+    line-height: 1.5;
+    
+    color: #fff;
+    background-color: #000;
+    */
+    background-color: #fff;
+    color: #000;
 }
 
+button:hover {
+    border: 1px solid #0084ff;
+}
+/* nav */
+
+*:focus {
+    outline: 1px solid #000;
+}
+
+.navbar {
+    height: 80px;
+    margin: 0 20px;
+    display: flex;
+    flex-grow: 2 1;
+}
+
+.nav-mid {
+    display: flex;
+    flex: 3 1 auto;
+}
+
+.nav-left {
+    flex: 1 1 auto;
+}
+.nav-right {
+    display: flex;
+    flex-direction: row-reverse;
+    flex: 1 1 auto;
+}
+
+.nav-element {
+    margin: 0 20px;
+}
+
+.nav-element a {
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+}
+
+#active.nav-h {
+    border: 1px solid #000;
+    padding: 0 5px;
+}
+
+.nav-element a:hover {
+    text-align: center;
+    color: #0084ff;
+    text-decoration: none;
+}
+
+/* title */
+
+.title {
+    margin: 20 0 0 0;
+    text-align: center;
+}
+
+/* index */
+.container {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: dense;
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+
+    margin: 60px auto;
+    max-width: 800px;
+}
+
+.product-image {
+    background-color: #e5e5e5;
+    display: block;
+    /*min-height: 200px;
+    width: 100%;*/
+    height: 200px;
+    width: 250px;
+}
+
+.product-image > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.product-name {
+    font-size: 14px;
+    margin: 20px 0 0 0;
+    line-height: 18px;
+}
+
+.product-name a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.product-price {
+    font-weight: 500;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.cart-btn {
+    padding: 0.5em 2em;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+/* search */
+.search-parent {
+    margin: auto;
+    width: 50%;
+}
+.search-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    height: 50px;
+    padding: 20px;
+
+    font-size: 18x;
+}
+
+.search-container input {
+    font-size: 18x;
+    flex: 6 1 auto;
+    padding-bottom: 9px;
+    line-height: 1.5em;
+    color: #000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+}
+
+.search-container input:focus {
+    outline: 0 !important;
+}
+.search-container button {
+    font-size: 16px;
+    padding: 7px;
+    margin-left: 15px;
+}
+/* login */
+
+.login-wrap {
+    text-align: center;
+    padding: 1em 2em;
+}
+
+.form-input {
+    font-family: IBM Plex Mono, monospace;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    width: 400px;
+    height: 30px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #000000;
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.incorrect-login-message {
+    display: inline-block;
+    font-weight: 400;
+    margin-top: 15px;
+    padding-inline: 5px;
+    color: #830b0b;
+    background-color: #fce2e2;
+}
+
+.login-btn {
+    font-size: 14px;
+    padding: 0.5em 2em;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+/* error */
+
+.error-message p {
+    text-align: center;
+    margin: 2 em;
+    padding: 2 em;
+}
