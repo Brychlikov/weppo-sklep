@@ -43,12 +43,14 @@ declare module 'express-session' {
     }
 }
 
-productsRouter.get('/add', (req: Request, res: Response) => {
-    res.render('add_product');
+productsRouter.get('/add', authorize("Admin"), (req: Request, res: Response) => {
+    res.render('add_product', { user : req.signedCookies.user, url : "/products/add",
+    cart_item_count : req.signedCookies.cart_item_count });
 });
 
 productsRouter.post(
-    '/new', 
+    '/new',
+    authorize("Admin"),
     upload.single('productImage'), 
     body('price').isNumeric(),
     async (req: Request, res: Response) => 
@@ -66,16 +68,19 @@ productsRouter.post(
     const imgUrl = req.file?.path.substring(req.file?.path.indexOf('/'));
     prodData.img_url = imgUrl;
     const _p = await Product.createProduct(prodData);
-    res.render('products/added');
+    res.render('products/added', { user : req.signedCookies.user, url : "/products/new",
+    cart_item_count : req.signedCookies.cart_item_count });
 });
 
 productsRouter.get("/:id", (req, res) => {
     (async function () {
         const prod = await Product.findById(Number(req.params.id));
         if(req.signedCookies.user){
-            res.render('product', { product : prod, user : req.signedCookies.user });
+            res.render('product', { product : prod, user : req.signedCookies.user, url : `/product/${req.params.id}`,
+            cart_item_count : req.signedCookies.cart_item_count });
         }else{
-            res.render('product', { product : prod });
+            res.render('product', { product : prod, url : `/product/${req.params.id}`,
+            cart_item_count : req.signedCookies.cart_item_count });
         }
     })();
 });
