@@ -18,12 +18,14 @@ export class Category {
     }
 
     public static async createCategory(name: string) : Promise<Category> {
-        const [res] = await knex<CategoryI>('products').insert({ name }).returning("*");
+        const [res] = await knex<CategoryI>('categories').insert({ name }).returning("*");
         return new Category(res);
     }
 
     public static async categoriesOf(productId: number) : Promise<Category[]> {
-        const res = await knex('products').select("*").where({ product_id: productId }) as CategoryI[];
+        const res = await knex.from('categories')
+            .innerJoin('product_categories', 'categories.id', 'product_categories.category_id')
+            .select("categories.id", "categories.name").where({ product_id: productId }) as CategoryI[];
         const cats = res.map(d => new Category(d));
         return cats;
     }
