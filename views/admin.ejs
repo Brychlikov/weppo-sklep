@@ -23,8 +23,6 @@
                                 #<%= order.id %>
                             </div>
                             <div class="order-products">
-
-
                                 <% order.products.forEach( product=> { %>
                                     <div class="order-product">
                                         <p>
@@ -39,11 +37,16 @@
                                     </div>
                                     <%}) %>
                                         <p class="order-total">
-                                            <%= order.totalCost %>zł
+                                            <%= order.totalCost %> zł
                                         </p>
                             </div>
+                            <div cless="order-user">
+                                Użytkownik #<%= order.user_id %>
+                            </div>
                         </div>
+
                         <% }); %>
+
                 </div>
                 <div class="account-container">
                     <h2> Użytkownicy: </h2>

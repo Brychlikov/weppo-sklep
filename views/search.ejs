@@ -10,46 +10,40 @@
                     </div>
                 </form>
             </div>
-            <% if ( locals.message ) { %>
-                <div class='search-message'>
-                    <%= locals.message %>
+            <% if ( locals.products ) { %>
+                <div class="body-wrap">
+                    <h2 class="search-title">
+                        Pasujące produkty
+                    </h2>
+                    <div class="container">
+                        <% products.forEach( product=> { %>
+                            <div class="product">
+                                <a class="product-image" href="/product/<%= product.id %>">
+                                    <img src='<%= product.img_url %>' alt=<%=product.name %> >
+                                </a>
+                                <div class="product-label">
+                                    <h2 class="product-name">
+                                        <a href="/product/<%= product.id %>">
+                                            <%= product.name %>
+                                        </a>
+                                    </h2>
+                                    <div class="product-price">
+                                        <p>
+                                            <%= product.price %>zł
+                                        </p>
+                                    </div>
+                                    <div class="product-button area">
+                                        <form method="POST">
+                                            <button class="cart-btn" id='<%= product.id %>'> Do koszyka
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
                 </div>
                 <% } %>
-                    <% if ( locals.products ) { %>
-                        <!-- copied from index.ejs for now -->
-                        <div class="body-wrap">
-                            <h2 class="search-title">
-                                Pasujące produkty
-                            </h2>
-                            <div class="container">
-                                <% products.forEach( product=> { %>
-                                    <div class="product">
-                                        <a class="product-image" href="/product/<%= product.id %>">
-                                            <img src='<%= product.img_url %>' alt=<%=product.name %> >
-                                        </a>
-                                        <div class="product-label">
-                                            <h2 class="product-name">
-                                                <a href="/product/<%= product.id %>">
-                                                    <%= product.name %>
-                                                </a>
-                                            </h2>
-                                            <div class="product-price">
-                                                <p>
-                                                    <%= product.price %>zł
-                                                </p>
-                                            </div>
-                                            <div class="product-button area">
-                                                <form method="POST">
-                                                    <button class="cart-btn" id='<%= product.id %>'> Do koszyka
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% }); %>
-                            </div>
-                        </div>
-                        <% } %>
         </body>
 
         </html>

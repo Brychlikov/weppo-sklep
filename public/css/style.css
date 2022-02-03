@@ -549,9 +549,16 @@ li {
 }
 
 .order-id {
+    flex: 1 1 auto;
     display: block;
 }
+
+.order-user {
+    flex: 1 1 auto;
+    align-self: flex-end;
+}
 .order-products {
+    flex: 1 1 auto;
     display: block;
     margin: 0 20px;
 }
@@ -573,7 +580,7 @@ li {
 }
 .admin-buttons form {
     flex: 1 1 auto;
-    margin: 0 20px;
+    margin: 0 5px;
 }
 
 /* error */
