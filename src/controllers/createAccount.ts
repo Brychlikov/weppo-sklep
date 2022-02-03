@@ -33,20 +33,21 @@ createAccountRouter.post("/", (req, res) => {
     userData.name = assertGet(req.body, "txtUser");
     if (!validateEmail(userData.name)) {
         res.redirect("/createAccount?message=Niepoprawny email");
+    } else {
+        userData.role = "Normal";
+        const password = assertGet(req.body, "txtPwd");
+        (async function () {
+            const check_if_exists = await User.findByName(userData.name);
+            if (check_if_exists != null) {
+                res.redirect(
+                    "/createAccount?message=Na ten email istnieje już konto",
+                );
+            }
+            userData.password = await hash(password, 10);
+            const d = await User.addUser(userData);
+            res.cookie("user", userData.name, { signed: true });
+            res.cookie("cart_item_count", 0, { signed: true });
+            res.redirect("/");
+        })();
     }
-    userData.role = "Normal";
-    const password = assertGet(req.body, "txtPwd");
-    (async function () {
-        const check_if_exists = await User.findByName(userData.name);
-        if (check_if_exists != null) {
-            res.redirect(
-                "/createAccount?message=Na ten email istnieje już konto",
-            );
-        }
-        userData.password = await hash(password, 10);
-        const d = await User.addUser(userData);
-        res.cookie("user", userData.name, { signed: true });
-        res.cookie("cart_item_count", 0, { signed: true });
-        res.redirect("/");
-    })();
 });

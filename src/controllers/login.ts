@@ -26,7 +26,7 @@ userRouter.get("/", (req: Request, res: Response) => {
     else res.render("login.ejs", { url : "/login", cart_item_count : req.signedCookies.cart_item_count });
 });
 
-userRouter.post("/", (req, res) => {
+userRouter.post("/", async (req, res) => {
     let result = false;
     const username = assertGet(req.body, "txtUser");
     const user = UserModel.findByName(username);

@@ -106,15 +106,13 @@ productsRouter.post(
     cart_item_count : req.signedCookies.cart_item_count });
 });
 
-productsRouter.get("/:id", (req, res) => {
-    (async function () {
-        const prod = await Product.findById(Number(req.params.id));
-        if(req.signedCookies.user){
-            res.render('product', { product : prod, user : req.signedCookies.user, url : `/product/${req.params.id}`,
-            cart_item_count : req.signedCookies.cart_item_count });
-        }else{
-            res.render('product', { product : prod, url : `/product/${req.params.id}`,
-            cart_item_count : req.signedCookies.cart_item_count });
-        }
-    })();
+productsRouter.get("/:id", async (req, res) => {
+    const prod = await Product.findById(Number(req.params.id));
+    if(req.signedCookies.user){
+        res.render('product', { product : prod, user : req.signedCookies.user, url : `/product/${req.params.id}`,
+        cart_item_count : req.signedCookies.cart_item_count });
+    }else{
+        res.render('product', { product : prod, url : `/product/${req.params.id}`,
+        cart_item_count : req.signedCookies.cart_item_count });
+    }
 });
