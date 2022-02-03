@@ -55,4 +55,9 @@ export class User {
         const res = await knex<UserI>('users').insert(data).returning("*");
         return res.map(User.fromI);
     }
+    
+    public static async getAll() : Promise<UserI[]>{
+        const res = await knex<UserI>('products').select("*");
+        return res.map(User.fromI);
+    }
 }

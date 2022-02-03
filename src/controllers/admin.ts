@@ -19,11 +19,16 @@ adminRouter.get(
         const pom = await Order.getAll();
         if(pom) orders = pom;
         const user = await User.findByName(req.signedCookies.user);
+        let users : User[];
+        users = [];
+        const pom2 = await User.getAll();
+        if(pom2) users = pom2;
         res.render("admin.ejs", {
             orders : orders,
             url: "/admin",
             cart_item_count: req.signedCookies.cart_item_count,
             user: user,
+            users : users,
         });
     },
 );

@@ -4,6 +4,7 @@ import { ProductWithCount } from "../models/ProductWithCount";
 import { Product } from "../models/Product";
 import { Order } from "../models/Order";
 import { User } from "../models/User";
+import { emit } from "process";
 
 export const checkoutRouter = express.Router();
 
@@ -13,22 +14,39 @@ checkoutRouter.get("/", async (req: Request, res: Response) => {
         user: user,
         url: "/checkout",
         cart_item_count: req.signedCookies.cart_item_count,
+        message : req.query.message,
     });
 });
 
+function validateEmail(email: string): boolean {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validatePostalCode(postalCode : string) :boolean{
+    return /^([0-9]{2}-[0-9]{3})$/.test(postalCode);
+}
+function validatePhone(phone : string) :boolean{
+    const re = /^\+?\d{9,12}/
+    return re.test(phone);
+}
 checkoutRouter.post("/", async (req: Request, res: Response) => {
 
-    const [name, family_name, address_line1, address_line2, city, postal_code, phone] = 
+    const [name, family_name, address_line1, address_line2, city, postal_code, phone, email] = 
     [req.body.given_name, req.body.family_name, req.body["address-line1"], req.body["address-line2"], req.body.city, 
-    req.body["postal-code"], req.body.phone];
-    const terms = req.body.terms ? 1 : 0;
-    const terms2 = req.body.terms2 ? 1 : 0;
-    
-    const errors = 0;
-    if(errors){
-
+    req.body["postal-code"], req.body.phone, req.body.email];
+    if(!validateEmail(email)){
+        res.redirect("/checkout?message=Niepoprawny email");
+        return;
     }
-
+    if(!validatePostalCode(postal_code)){
+        res.redirect("/checkout?message=Niepoprawny kod pocztowy");
+        return;
+    }
+    if(!validatePhone(phone)){
+        res.redirect("/checkout?message=Niepoprawny numer telefonu");
+        return;
+    }
     const products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
     const sum = ProductWithCount.getCostOfAllProducts(products);
     const user = await User.findByName(req.signedCookies.user);
