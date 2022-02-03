@@ -87,6 +87,10 @@ li {
     flex-grow: 2 1;
 }
 
+.nav-toggle {
+    display: none;
+}
+
 .nav-mid {
     display: flex;
     flex: 3 1 auto;
@@ -119,16 +123,6 @@ li {
     text-decoration: none;
 }
 
-@media screen and (max-width: 500px) {
-    .navbar {
-        font-size: 13px;
-    }
-
-    .navbar-mid {
-        order: 2;
-    }
-}
-
 /* index */
 
 .container {
@@ -139,9 +133,13 @@ li {
     grid-auto-flow: dense;
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 25px;
-    grid-template-columns: repeat(3, 1fr);
+    /*grid-template-columns: repeat(3, 1fr);*/
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
+.product {
+    margin: auto;
+}
 .product-image {
     background-color: #e5e5e5;
     display: block;
@@ -186,7 +184,6 @@ li {
     flex-basis: auto;
     height: 50px;
     padding: 20px;
-
     font-size: 18x;
 }
 
@@ -218,14 +215,22 @@ li {
     text-align: center;
     padding: 1em 2em;
     margin: 30px auto 100px;
+    max-width: 400px;
 }
 
+.login-wrap form {
+    width: 100%;
+}
+
+.login container {
+    width: 100%;
+}
 .login-form-input {
     font-family: IBM Plex Mono, monospace;
     letter-spacing: 0.1em;
-    display: inline-block;
-    width: 400px;
+
     height: 30px;
+    width: 100%;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.5em;
@@ -233,6 +238,9 @@ li {
     margin-top: 10px;
     background-color: #fff;
     border: 1px solid #000;
+}
+.login-form-input input {
+    margin: auto;
 }
 
 .incorrect-login-message {
@@ -393,7 +401,7 @@ li {
 
 .checkout-container {
     margin: auto;
-    width: 500px;
+    max-width: 500px;
 }
 
 .checkout-row {
@@ -518,10 +526,180 @@ li {
     font-size: 16px;
 }
 
+/* account */
+
+.logout-btn {
+    width: 100%;
+}
+.account-container {
+    margin: 30px 0;
+}
+.account-container h2 {
+    margin: 0;
+    width: 100%;
+}
+
+.order {
+    width: 100%;
+    display: flex;
+    margin: 20px 0;
+    font-size: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+.order-id {
+    display: block;
+}
+.order-products {
+    display: block;
+    margin: 0 20px;
+}
+
+.order-product {
+    display: flex;
+}
+
+.order-product p {
+    margin: 0 10px;
+}
+
 /* error */
 
 .error-message p {
     text-align: center;
     margin: 2 em;
     padding: 2 em;
+}
+
+@media screen and (max-width: 900px) {
+    /* max-width: 900 */
+    .search-bar-container {
+        margin: 0 40px;
+    }
+
+    .productview-wrap {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .productview-image {
+        margin: auto;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .cart-container {
+        margin: auto 20px;
+    }
+
+    .cart-image {
+        flex: 2 1 auto;
+        margin: 10px 20px 10px 0;
+        height: 100px;
+        background: transparent;
+    }
+
+    .cart-image > img {
+        width: 125px;
+    }
+
+    .cart-info {
+        margin-left: 0;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .cart-info h2 {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .cart-remove button {
+        font-size: 14px;
+    }
+
+    .cart-quantity {
+        margin: 0;
+        font-size: 14px;
+    }
+    /* cart checkout */
+
+    .cart-summary {
+        flex-direction: column;
+    }
+    .cart-total {
+        margin: auto;
+    }
+
+    .cart-total p {
+        margin: 21px 15px;
+        padding: 0;
+    }
+
+    .cart-summary form {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    /* max-width: 800 */
+    .body-wrap {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    /* smartphones */
+    .navbar {
+        margin: 20px 20px 100px;
+        flex-direction: column;
+    }
+
+    .nav-mid,
+    .nav-right {
+        flex-direction: column;
+        display: block;
+        margin: 0;
+    }
+
+    .nav-element {
+        margin: 0 5px;
+    }
+    .nav-h {
+        font-size: 16px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        margin: 0 20px;
+        display: grid;
+        grid-template-columns: none;
+    }
+
+    .product {
+        width: 100%;
+        margin: auto;
+        align-content: center;
+    }
+
+    /* checkout */
+    .checkout-row,
+    .checkout-checkbox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .checkout-row input,
+    .checkout-checkbox input {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .checkout-checkbox input[type="checkbox"] {
+        border: 1px solid #000;
+        margin: 10px 0;
+    }
 }

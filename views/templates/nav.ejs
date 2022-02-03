@@ -1,4 +1,11 @@
 <nav class="navbar">
+    <div class="nav-toggle" onclick="toggleMobileMenu(this)">
+        <div class="nav-element">
+            <h2 class="nav-h">
+                MENU
+            </h2>
+        </div>
+    </div>
     <div class="nav-left">
         <div class="nav-element">
             <h2 class="nav-h"> <a href="/"> SKLEP </a> </h2>
@@ -31,7 +38,7 @@
 
     <% if (locals.user) { %>
         <div class="nav-right">
-            <div class="nav-element">
+            <div class="nav-element" id="cart">
                 <% if (url=="/cart" ) { %>
                     <h2 class="nav-h" id="active">
                         <% } else { %>
@@ -40,8 +47,8 @@
                                     <a href="/cart"> Koszyk(<%= Number(cart_item_count) %>) </a>
                             </h2>
             </div>
-            <div class="nav-element">
-                <% if (url=="/login" ) { %>
+            <div class="nav-element" id="account">
+                <% if (url=="/account" ) { %>
                     <h2 class="nav-h" id="active">
                         <% } else { %>
                             <h2 class="nav-h">
@@ -53,7 +60,7 @@
             </div>
 
             <% } else { %>
-                <div class="nav-element">
+                <div class="nav-element" id="login">
                     <% if (url=="/login" ) { %>
                         <h2 class="nav-h" id="active">
                             <% } else { %>

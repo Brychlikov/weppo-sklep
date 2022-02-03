@@ -4,12 +4,31 @@
 
         <body>
             <div class="body-wrap">
-                <h2 class="title"> Konto </h2>
-                <h2 class="title"> Twoje zamówienia: </h2>
-                <div>
-                    <form method="POST">
-                        <button class="login-btn"> Wyloguj </button>
-                    </form>
+                <form method="POST">
+                    <button class="logout-btn"> Wyloguj </button>
+                </form>
+
+                <div class="account-container">
+                    <h2> Twoje zamówienia: </h2>
+                    <% orders.forEach( order=> { %>
+                        <div class="order">
+                            <div cless="order-id">
+                                #<%= order.id %>
+                            </div>
+                            <div class="order-products">
+                                <% order.products.forEach( product=> { %>
+                                    <div class="order-product">
+                                        <p>
+                                            <%= product.name %>
+                                        </p>
+                                        <p>
+                                            x<%= product.qt %>
+                                        </p>
+                                    </div>
+                                    <%}) %>
+                            </div>
+                        </div>
+                        <% }); %>
                 </div>
         </body>
 

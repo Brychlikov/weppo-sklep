@@ -3,32 +3,34 @@
     <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
-            <div class="login-wrap">
-                <form method="POST">
-                    <div id='login'>
-                        <div class="form-field">
-                            <input class="login-form-input" type='text' name='txtUser' placeholder="Email" />
-                        </div>
-                        <div class="form-field">
-                            <input class="login-form-input" type='password' name='txtPwd' placeholder="Hasło" />
-                        </div>
-                        <div>
-                            <button class="login-btn">Zaloguj się</button>
-                        </div>
-                        <% if ( locals.message ) { %>
-                            <div class='incorrect-login-message'>
-                                <%= locals.message %>
+            <div class="body-wrap">
+                <div class="login-wrap">
+                    <form method="POST">
+                        <div id='login'>
+                            <div class="form-field">
+                                <input class="login-form-input" type='text' name='txtUser' placeholder="Email" />
                             </div>
-                            <% } %>
-                    </div>
-                </form>
-                <form action="/createAccount">
-                    <div id='createAccount'>
-                        <div>
-                            <button class="login-btn">Stwórz konto</button>
+                            <div class="form-field">
+                                <input class="login-form-input" type='password' name='txtPwd' placeholder="Hasło" />
+                            </div>
+                            <div>
+                                <button class="login-btn">Zaloguj się</button>
+                            </div>
+                            <% if ( locals.message ) { %>
+                                <div class='incorrect-login-message'>
+                                    <%= locals.message %>
+                                </div>
+                                <% } %>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                    <form action="/createAccount">
+                        <div id='createAccount'>
+                            <div>
+                                <button class="login-btn">Stwórz konto</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </body>
 
