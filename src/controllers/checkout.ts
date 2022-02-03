@@ -35,10 +35,10 @@ checkoutRouter.post("/", async (req: Request, res: Response) => {
     let order_count = await Order.getMaxIdOrder();
     order_count++;
     let order : Order;
-    if(user) order = {id : order_count, user_id : user.id, products : [] }
+    if(user) order = {id : order_count, user_id : user.id, products : [], totalCost : ProductWithCount.getCostOfAllProducts(products)};
     else{
          res.redirect("/checkout"); // message
-         order = {id : order_count, user_id : 0, products : [] } // bo krzyczy niżej, a to i tak nieuzywane.
+         order = {id : order_count, user_id : 0, products : [] , totalCost : 0} // bo krzyczy niżej, a to i tak nieuzywane.
     }
     for(const prod of products){
         order.products.push(prod);
