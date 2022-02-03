@@ -7,9 +7,10 @@ import { User } from "../models/User";
 
 export const checkoutRouter = express.Router();
 
-checkoutRouter.get("/", (req: Request, res: Response) => {
+checkoutRouter.get("/", async (req: Request, res: Response) => {
+    const user = await User.findByName(req.signedCookies.user);
     res.render("checkout.ejs", {
-        user: req.signedCookies.user,
+        user: user,
         url: "/checkout",
         cart_item_count: req.signedCookies.cart_item_count,
     });

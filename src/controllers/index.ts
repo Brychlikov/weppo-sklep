@@ -4,6 +4,7 @@ import express from "express";
 import { authorize } from "./authorize";
 import { nextTick } from "process";
 import cookieParser from "cookie-parser";
+import {User} from "../models/User";
 // import { index } from "src/routes";
 
 /**
@@ -23,9 +24,10 @@ indexRouter.get(
     (req: Request, res: Response) => {
         (async function () {
             const products = await Product.getAll();
+            const user = await User.findByName(req.signedCookies.user);
             res.render("index", {
                 products: products,
-                user: req.signedCookies.user,
+                user: user,
                 url: "/",
                 cart_item_count: req.signedCookies.cart_item_count,
             }); // user : req.user

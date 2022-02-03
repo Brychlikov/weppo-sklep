@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { sign } from "crypto";
 import { userRouter } from "./login";
 import { ProductWithCount } from "../models/ProductWithCount";
+import { User } from "../models/User";
 /**
  * GET /
  * Home page.
@@ -22,12 +23,18 @@ cartRouter.get(
     authorize("Admin", "Normal"),
     (req: Request, res: Response) => {
         (async function () {
-            const products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
-            const sum = ProductWithCount.getCostOfAllProducts(products);
+            let products : ProductWithCount[];
+            products = [];
+            let sum = 0;
+            if(req.signedCookies.cart_item_count){ 
+                products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
+                sum = ProductWithCount.getCostOfAllProducts(products);
+            }
+            const user = await User.findByName(req.signedCookies.user);
             res.render("cart", {
                 products: products, sum: sum, url: "/cart",
                 cart_item_count: req.signedCookies.cart_item_count,
-                user: req.signedCookies.user,
+                user: user,
             });
         })();
     },

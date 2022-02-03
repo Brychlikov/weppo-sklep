@@ -26,7 +26,7 @@ accountRouter.get(
             orders : orders,
             url: "/account",
             cart_item_count: req.signedCookies.cart_item_count,
-            user: req.signedCookies.user,
+            user: user,
         });
     },
 );

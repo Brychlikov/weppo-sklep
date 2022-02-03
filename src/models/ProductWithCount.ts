@@ -28,6 +28,7 @@ export class ProductWithCount {
 
     public static async changeFromProductsId(data : string[]) : Promise<ProductWithCount[]>{
         const products = [];
+        console.log(data);
         const pom = data.map(Number).sort((a: number, b: number) => (a < b ? -1 : ((a > b) ? 1 : 0)));
         let previous = -1;
         let cnt = 0;
@@ -35,7 +36,7 @@ export class ProductWithCount {
             if(prod_id != previous && previous != -1){
                 const prod = await Product.findById(previous);
                 if(prod){
-                    const prodWithCount = await ProductWithCount.changeFromProduct(prod, cnt);
+                    const prodWithCount = ProductWithCount.changeFromProduct(prod, cnt);
                     products.push(prodWithCount);
                 }
                 cnt = 0;
