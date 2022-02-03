@@ -20,3 +20,13 @@ accountRouter.get(
         });
     },
 );
+
+accountRouter.post(
+    "/",
+    authorize("Normal", "Admin"),
+    (req: Request, res: Response) => {
+        res.cookie("user", 0, { maxAge : -1 });
+        res.cookie("cart", 0, { maxAge : -1 });
+        res.redirect("/");
+    },
+);
