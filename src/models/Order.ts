@@ -1,3 +1,4 @@
+import { count } from "console";
 import { knex } from "../dbConnection";
 import { Product } from "./Product";
 import { ProductWithCount } from "./ProductWithCount";
@@ -60,11 +61,13 @@ export class Order {
     public user_id : number;
     // public products : SingleProductNoOtherIds[];
     public products : ProductWithCount[];
+    public totalCost : number;
 
     private constructor(data: Order) {
         this.id = data.id;
         this.user_id = data.user_id;
         this.products = data.products;
+        this.totalCost = data.totalCost;
     }
 
     public static async findByUserId(user_id : number) : Promise<Order[] | null> {
@@ -82,15 +85,17 @@ export class Order {
             });
             let previous = -1;
             let singOrd : Order;
-            singOrd = {id : -1, user_id : user_id, products : []};
+            singOrd = {id : -1, user_id : user_id, products : [], totalCost : 0};
             for (const sing of res) {
                 if(sing.order_id != previous && previous != -1){;
                     ret.push(new Order(singOrd));
                     singOrd.products = [];
+                    singOrd.totalCost = 0;
                 }
                 const prod = await Product.findById(sing.product_id);
                 if(prod) singOrd.products.push(ProductWithCount.changeFromProduct(prod, sing.count));
                 else return null;
+                singOrd.totalCost += prod.price*sing.count;
                 singOrd.id = sing.order_id;
                 previous = sing.order_id;
             }
@@ -125,15 +130,17 @@ export class Order {
             });
             let previous = -1;
             let singOrd : Order;
-            singOrd = {id : -1, user_id : -1, products : []};
+            singOrd = {id : -1, user_id : -1, products : [], totalCost : 0};
             for (const sing of res) {
                 if(sing.order_id != previous && previous != -1){;
                     ret.push(new Order(singOrd));
                     singOrd.products = [];
+                    singOrd.totalCost = 0;
                 }
                 const prod = await Product.findById(sing.product_id);
                 if(prod) singOrd.products.push(ProductWithCount.changeFromProduct(prod, sing.count));
                 else return null;
+                singOrd.totalCost += prod.price*sing.count;
                 singOrd.id = sing.order_id;
                 singOrd.user_id = sing.user_id;
                 previous = sing.order_id;
