@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import express from "express";
 import { ProductWithCount } from "../models/ProductWithCount";
 import { Product } from "../models/Product";
+import { Order } from "../models/Order";
+import { User } from "../models/User";
 
 export const checkoutRouter = express.Router();
 
@@ -28,6 +30,20 @@ checkoutRouter.post("/", async (req: Request, res: Response) => {
 
     const products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
     const sum = ProductWithCount.getCostOfAllProducts(products);
-
-    
+    const user = await User.findByName(req.signedCookies.user);
+    let order_count = await Order.getMaxIdOrder();
+    order_count++;
+    let order : Order;
+    if(user) order = {id : order_count, user_id : user.id, products : [] }
+    else{
+         res.redirect("/checkout"); // message
+         order = {id : order_count, user_id : 0, products : [] } // bo krzyczy niżej, a to i tak nieuzywane.
+    }
+    for(const prod of products){
+        order.products.push(prod);
+    }
+    Order.createOrder(order);
+    res.cookie("cart", [], {signed : true});
+    res.cookie("cart_item_count", 0, {signed : true});
+    res.redirect("/");
 });
