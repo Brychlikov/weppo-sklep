@@ -555,13 +555,25 @@ li {
     display: block;
     margin: 0 20px;
 }
-
+.order-total {
+    font-weight: bold;
+}
 .order-product {
     display: flex;
 }
 
 .order-product p {
     margin: 0 10px;
+}
+
+/* admin */
+
+.admin-buttons {
+    display: flex;
+}
+.admin-buttons form {
+    flex: 1 1 auto;
+    margin: 0 20px;
 }
 
 /* error */

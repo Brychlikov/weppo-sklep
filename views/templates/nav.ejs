@@ -1,11 +1,4 @@
 <nav class="navbar">
-    <div class="nav-toggle" onclick="toggleMobileMenu(this)">
-        <div class="nav-element">
-            <h2 class="nav-h">
-                MENU
-            </h2>
-        </div>
-    </div>
     <div class="nav-left">
         <div class="nav-element">
             <h2 class="nav-h"> <a href="/"> SKLEP </a> </h2>
@@ -37,42 +30,64 @@
     </div>
 
     <% if (locals.user) { %>
-        <div class="nav-right">
-            <div class="nav-element" id="cart">
-                <% if (url=="/cart" ) { %>
-                    <h2 class="nav-h" id="active">
-                        <% } else { %>
-                            <h2 class="nav-h">
-                                <% } %>
-                                    <a href="/cart"> Koszyk(<%= Number(cart_item_count) %>) </a>
-                            </h2>
-            </div>
-            <div class="nav-element" id="account">
-                <% if (url=="/account" ) { %>
-                    <h2 class="nav-h" id="active">
-                        <% } else { %>
-                            <h2 class="nav-h">
-                                <% } %>
-                                    <a href="/account">
-                                        Konto <% locals.user.role %>
-                                    </a>
-                            </h2>
-            </div>
-
-            <% } else { %>
-                <div class="nav-element" id="login">
-                    <% if (url=="/login" ) { %>
+        <% if (locals.user.role=="Admin" ) { %>
+            <div class="nav-right">
+                <div class="nav-element" id="cart">
+                    <% if (url=="/cart" ) { %>
                         <h2 class="nav-h" id="active">
                             <% } else { %>
                                 <h2 class="nav-h">
                                     <% } %>
-                                        <a href="/login">
-                                            Logowanie
+                                        <a href="/cart"> Koszyk(<%= Number(cart_item_count) %>) </a>
+                                </h2>
+                </div>
+                <div class="nav-element" id="account">
+                    <% if (url=="/admin" ) { %>
+                        <h2 class="nav-h" id="active">
+                            <% } else { %>
+                                <h2 class="nav-h">
+                                    <% } %>
+                                        <a href="/admin">
+                                            Panel administracyjny
                                         </a>
                                 </h2>
                 </div>
+                <% } else { %>
+                    <div class="nav-right">
+                        <div class="nav-element" id="cart">
+                            <% if (url=="/cart" ) { %>
+                                <h2 class="nav-h" id="active">
+                                    <% } else { %>
+                                        <h2 class="nav-h">
+                                            <% } %>
+                                                <a href="/cart"> Koszyk(<%= Number(cart_item_count) %>) </a>
+                                        </h2>
+                        </div>
+                        <div class="nav-element" id="account">
+                            <% if (url=="/account" ) { %>
+                                <h2 class="nav-h" id="active">
+                                    <% } else { %>
+                                        <h2 class="nav-h">
+                                            <% } %>
+                                                <a href="/account">
+                                                    Konto
+                                                </a>
+                                        </h2>
+                        </div>
+                        <% }} else { %>
+                            <div class="nav-element" id="login">
+                                <% if (url=="/login" ) { %>
+                                    <h2 class="nav-h" id="active">
+                                        <% } else { %>
+                                            <h2 class="nav-h">
+                                                <% } %>
+                                                    <a href="/login">
+                                                        Logowanie
+                                                    </a>
+                                            </h2>
+                            </div>
 
-                <% } %>
-        </div>
+                            <% } %>
+                    </div>
 
 </nav>

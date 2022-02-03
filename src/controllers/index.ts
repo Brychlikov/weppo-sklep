@@ -4,7 +4,7 @@ import express from "express";
 import { authorize } from "./authorize";
 import { nextTick } from "process";
 import cookieParser from "cookie-parser";
-import {User} from "../models/User";
+import { User } from "../models/User";
 // import { index } from "src/routes";
 
 /**
@@ -40,7 +40,7 @@ indexRouter.get("/annonymous", (req, res) => {
         const products = await Product.getAll();
         res.render("index", {
             products: products,
-            url: "/annonymous",
+            url: "/",
             cart_item_count: req.signedCookies.cart_item_count,
         });
     })();

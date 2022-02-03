@@ -4,8 +4,11 @@
 
         <body>
             <div class="body-wrap">
+                <h2 class="title">
+                    Witaj <%= user.name %>
+                </h2>
                 <form method="POST">
-                    <button class="logout-btn"> Wyloguj </button>
+                    <button class="logout-btn"> Wyloguj</button>
                 </form>
 
                 <div class="account-container">
@@ -24,8 +27,14 @@
                                         <p>
                                             x<%= product.qt %>
                                         </p>
+                                        <p>
+                                            <%= product.price * product.qt %>zł
+                                        </p>
                                     </div>
                                     <%}) %>
+                                        <p class="order-total">
+                                            <%= order.totalCost %>
+                                        </p>
                             </div>
                         </div>
                         <% }); %>
