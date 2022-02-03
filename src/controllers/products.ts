@@ -119,3 +119,25 @@ productsRouter.get("/:id", async (req, res) => {
         cart_item_count : req.signedCookies.cart_item_count });
     }
 });
+
+
+productsRouter.post("/:id", async (req, res) => {
+    if (req.signedCookies.user) {
+        const addedProductId = req.body.button_id;
+        if (addedProductId) {
+            res.cookie(
+                "cart_item_count",
+                Number(req.signedCookies.cart_item_count) + 1,
+                { signed: true },
+            );
+            // console.log(Number(req.signedCookies.cart_item_count) + 1);
+            let cur_cart = req.signedCookies.cart;
+            if (!cur_cart) cur_cart = [];
+            cur_cart.push(addedProductId);
+            res.cookie("cart", cur_cart, { signed: true });
+            res.redirect(`/products/${req.params.id}`);
+        }
+    } else {
+        res.redirect("/login?message=Zaloguj się żeby dodawać do koszyka");
+    }
+});
