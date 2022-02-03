@@ -145,4 +145,16 @@ export class Order {
             return [];
         }
     }
+
+    public static async getMaxIdOrder() : Promise<number>{
+        const res = await knex<SingleProductI>('orders').select("*")
+        let maks = 1;
+        if(res){
+            res.map(SingleProduct.fromI);
+            for(const el of res){
+                if(el.order_id > maks) maks = el.order_id;
+            }
+        }
+        return maks;
+    }
 }
