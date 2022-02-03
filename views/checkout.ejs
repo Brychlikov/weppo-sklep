@@ -21,7 +21,7 @@
                         </div>
                         <div class="checkout-row">
                             <label for="address-line2">Nr mieszkania:*</label>
-                            <input type="text" id="address-line2" name="address-line2" required>
+                            <input type="number" id="address-line2" name="address-line2" required>
                         </div>
                         <div class="checkout-row">
                             <label for="city">Miasto:*</label>
@@ -32,8 +32,12 @@
                             <input type="text" id="postal-code" name="postal-code" required>
                         </div>
                         <div class="checkout-row">
+                            <label for="email">Email:*</label>
+                            <input type="text" id="postal-code" name="email" required>
+                        </div>
+                        <div class="checkout-row">
                             <label for="phone">Nr telefonu:*</label>
-                            <input type="text" id="phone" name="phone" required>
+                            <input type="number" id="phone" name="phone" required>
                         </div>
                         <div class="checkout-checkbox">
                             <input type="checkbox" id="terms" name="terms" required>
@@ -54,7 +58,12 @@
                         <div class="checkout-row">
                             * - wymagane
                         </div>
-                        <div><button>Zamawiam i płacę > </button></div>
+                        <% if ( locals.message ) { %>
+                            <div class='incorrect-login-message'>
+                                <%= locals.message %>
+                            </div>
+                            <% } %>
+                                <div><button>Zamawiam i płacę > </button></div>
                     </form>
                 </div>
             </div>

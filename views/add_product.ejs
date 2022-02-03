@@ -5,11 +5,11 @@
         <body>
             <div class="add-container">
                 <form method="POST" action="/products/new" enctype="multipart/form-data">
-                    <h2 class="add-title">Formularz dodawania produktów:</h2>
-                    <div class="add-input">Dodaj zdjecie <input type="file" name="productImage" /></div>
-                    <div class="add-input">Nazwa produktu <input type="text" name="name" value=<%=name %>></div>
-                    <div class="add-input">Cena <input type="text" name="price" value=<%=price %>></div>
-                    <div class="add-input-desc">Opis <input type="text" name="description" value=<%=description %>>
+                    <h2 class="add-title">Formularz dodawania produktów</h2>
+                    <div class="add-input">Dodaj zdjecie: <input type="file" name="productImage" /></div>
+                    <div class="add-input">Nazwa produktu: <input type="text" name="name" value=<%=name %>></div>
+                    <div class="add-input">Cena: <input type="text" name="price" value=<%=price %>></div>
+                    <div class="add-input-desc">Opis: <input type="text" name="description" value=<%=description %>>
                     </div>
                     <% if (error) { %>
                         <div class='incorrect-login-message'>

@@ -457,8 +457,8 @@ li {
     margin-bottom: 40px;
 }
 .add-container {
-    margin: 0 50px;
-    width: 33.33%;
+    margin: 0 50px 100px;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     font-size: 16px;
@@ -651,6 +651,18 @@ li {
 
     .cart-summary form {
         flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .add-input,
+    .add-input-desc {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .add-input input,
+    .add-input-desc input {
+        margin: 15px 0;
         width: 100%;
     }
 }
