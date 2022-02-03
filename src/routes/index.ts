@@ -6,6 +6,7 @@ import { userRouter } from "../controllers/login";
 import { createAccountRouter } from "../controllers/createAccount";
 import { cartRouter } from "../controllers/cart";
 import { searchRouter } from "../controllers/search";
+import { checkoutRouter } from "../controllers/checkout";
 export const index = Router();
 
 index.use("/", indexRouter);
@@ -14,3 +15,4 @@ index.use("/login", userRouter);
 index.use("/createAccount", createAccountRouter);
 index.use("/cart", cartRouter);
 index.use("/search", searchRouter);
+index.use("/checkout", checkoutRouter);

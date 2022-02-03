@@ -37,7 +37,7 @@
                         <% } else { %>
                             <h2 class="nav-h">
                                 <% } %>
-                                    <a href="/cart"> Koszyk( <% cart_item_count %> ) </a>
+                                    <a href="/cart"> Koszyk(<%= Number(cart_item_count) %>) </a>
                             </h2>
             </div>
             <div class="nav-element">
@@ -47,7 +47,7 @@
                             <h2 class="nav-h">
                                 <% } %>
                                     <a href="/login">
-                                        Konto <% locals.user %>
+                                        Konto <% locals.user.role %>
                                     </a>
                             </h2>
             </div>

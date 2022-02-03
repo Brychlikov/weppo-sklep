@@ -38,7 +38,7 @@ indexRouter.get("/annonymous", (req, res) => {
         const products = await Product.getAll();
         res.render("index", {
             products: products,
-            url: "/",
+            url: "/annonymous",
             cart_item_count: req.signedCookies.cart_item_count,
         });
     })();
@@ -56,9 +56,15 @@ indexRouter.post(
     "/",
     authorize("Normal", "Admin"),
     (req: Request, res: Response) => {
-        var addedProductId = req.body.button_id;
+        const addedProductId = req.body.button_id;
         if (addedProductId) {
-            var cur_cart = req.signedCookies.cart;
+            res.cookie(
+                "cart_item_count",
+                Number(req.signedCookies.cart_item_count) + 1,
+                { signed: true },
+            );
+            console.log(Number(req.signedCookies.cart_item_count) + 1);
+            let cur_cart = req.signedCookies.cart;
             if (!cur_cart) cur_cart = [];
             cur_cart.push(addedProductId);
             res.cookie("cart", cur_cart, { signed: true });
