@@ -10,36 +10,33 @@
                     <h2 class="title">
                         Zawartość koszyka
                     </h2>
-                    <% } else { %>
-                        <h2 class="title">
-                            Zawartość koszyka
-                        </h2>
-                        <div class="cart-container">
-                            <% products.forEach( product=> { %>
-                                <div class="cart-item">
-                                    <a class="cart-image" href="/products/<%= product.id %>">
-                                        <img src='<%= product.img_url %>' alt=<%=product.name %> >
-                                    </a>
-                                    <div class="cart-info">
-                                        <h2>
-                                            <a href="/products/<%= product.id %>">
-                                                <%= product.name %>
-                                            </a>
-                                        </h2>
-                                        <div class="product-price">
-                                            <%= product.price %>zł
-                                        </div>
-                                        <div class="cart-remove">
-                                            <form method="POST">
-                                                <button class="cart-remove" name="remove_button_id"
-                                                    value="<%= product.id %>"> Usuń </button>
-                                            </form>
-                                        </div>
+                    <div class="cart-container">
+                        <% products.forEach( product=> { %>
+                            <div class="cart-item">
+                                <a class="cart-image" href="/products/<%= product.id %>">
+                                    <img src='<%= product.img_url %>' alt=<%=product.name %> >
+                                </a>
+                                <div class="cart-info">
+                                    <h2>
+                                        <a href="/products/<%= product.id %>">
+                                            <%= product.name %>
+                                        </a>
+                                    </h2>
+                                    <div class="product-price">
+                                        <%= product.price %>zł
                                     </div>
                                     <div class="cart-remove">
                                         <form method="POST">
                                             <button class="cart-remove" name="remove_button_id"
-                                                value="<%= product.id%>"> Usuń </button>
+                                                value="<%= product.id %>"> Usuń </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="cart-remove">
+                                        <form method="POST">
+                                            <button class="cart-remove" name="remove_button_id"
+                                                value="<%= product.id%>">
+                                                Usuń </button>
                                         </form>
                                     </div>
                                 </div>
@@ -53,24 +50,22 @@
                                     </div>
 
                                 </div>
-                                <% }); %>
-                                    <div class="cart-summary">
-                                        <div class="cart-total">
-                                            <p>SUMA: </p>
-                                            <h2>
-                                                <%= locals.sum %>zł
-                                            </h2>
-                                        </div>
-                                        <form action="/checkout">
-                                            <button class="checkout-btn" name=""> Do kasy > </button>
-                                        </form>
+                            </div>
+
+                            <% }); %>
+                                <div class="cart-summary">
+                                    <div class="cart-total">
+                                        <p>SUMA: </p>
+                                        <h2>
+                                            <%= locals.sum %>zł
+                                        </h2>
                                     </div>
                                     <form action="/checkout">
                                         <button class="checkout-btn" name=""> Do kasy > </button>
                                     </form>
-                        </div>
-                        <% } %>
-                            </div>
+                                </div>
+                    </div>
+                    <% } %>
         </body>
 
         </html>
