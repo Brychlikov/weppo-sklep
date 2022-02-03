@@ -17,6 +17,7 @@ module.exports = {
 
     "rules": {
         "max-len": ["warn", { "code": 120 }],
+        "max-classes-per-file": ["error", { "ignoreExpressions": true, "max": 2 }],
         "comma-dangle": ["error", "always-multiline"],
         "@typescript-eslint/semi": ["error"],
         "object-curly-spacing": ["error", "always"],
@@ -25,7 +26,7 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/no-use-before-define": "off",
-        "max-classes-per-file": "error",
+        // "max-classes-per-file": "error",
         "prefer-template": "error",
         "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-explicit-any": "off",

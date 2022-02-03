@@ -1,7 +1,8 @@
 import { knex } from "../dbConnection";
+import { User } from "./User";
 
 
-interface OrderI {
+interface SingleProductI {
     id : number;
     user_id : number;
     order_id : number;
@@ -9,21 +10,26 @@ interface OrderI {
     count : number;
 }
 
-interface OrderNoIdI {
+interface SingleProductNoIdI {
     user_id : number;
     order_id : number;
     product_id : number;
     count : number;
 }
 
-export class Order {
+interface SingleProductNoOtherIds{
+    product_id : number;
+    count : number;
+}
+
+class SingleProduct {
     public id : number;
     public user_id : number;
     public order_id : number;
     public product_id : number;
     public count : number;
 
-    private constructor(data: OrderI) {
+    private constructor(data: SingleProductI) {
         this.id = data.id;
         this.user_id = data.user_id;
         this.order_id = data.order_id;
@@ -31,31 +37,104 @@ export class Order {
         this.count = data.count;
     }
 
-    private static fromI(data: OrderI) : Order {
-        return new Order(data);
+    public static fromI(data: SingleProductI) : SingleProduct {
+        return new SingleProduct(data);
     }
 
+    public static SingleProductToSingleProductNoOtherIds(data : SingleProduct) : SingleProductNoOtherIds{
+        let x : SingleProductNoOtherIds;
+        x = { product_id : data.product_id, count : data.count}
+        return x;
+    }
+}
+
+export interface Order{
+    id : number;
+    user_id : number;
+    products : SingleProductNoOtherIds[];
+}
+export class Order {
+    public id : number;
+    public user_id : number;
+    public products : SingleProductNoOtherIds[];
+
+    private constructor(data: Order) {
+        this.id = data.id;
+        this.user_id = data.user_id;
+        this.products = data.products;
+    }
 
     public static async findByUserId(user_id : number) : Promise<Order[] | null> {
-        const res = await knex<OrderI>('orders').select("*").where({ user_id });
+        const res = await knex<SingleProductI>('orders').select("*").where({ user_id });
         if(res) {
-            return res.map(Order.fromI);
+            let ret : Order[];
+            ret = [];
+            res.map(SingleProduct.fromI);
+            const user_id = res[0].user_id;
+            res.sort((a : SingleProductI, b : SingleProductI) =>{
+                if(a.order_id < b.order_id) return -1;
+                if(a.order_id > b.order_id) return 1;
+                return 0;
+            });
+            let previous = -1;
+            let singOrd : Order;
+            singOrd = {id : -1, user_id : user_id, products : []};
+            for (const sing of res) {
+                if(sing.order_id != previous && previous != -1){;
+                    ret.push(new Order(singOrd));
+                    singOrd.products = [];
+                }
+                singOrd.products.push({product_id : sing.product_id, count : sing.count});
+                singOrd.id = sing.order_id;
+                previous = sing.order_id;
+            }
+            ret.push(new Order(singOrd));
+            return ret;
         }
         else {
             return null;
         }
     }
 
-    public static async createOrder(data: OrderNoIdI[]) : Promise<Order[]> {
-        const res = [];
-        for(const x of data){
-            const [x] = await knex<OrderI>('orders').insert(data).returning("*");
-            res.push(x);
+    public static async createOrder(data: Order) : Promise<Order | null> {
+        for(const el of data.products){
+            let dod : SingleProductNoIdI;
+            dod = { order_id : data.id, product_id : el.product_id, user_id : data.user_id, count : el.count };
+            const [x] = await knex<SingleProductI>('orders').insert(dod).returning("*");
+            if(!x) return null;
         }
-        return res.map(Order.fromI);
+        return data;
     }
 
-    // public static async getAll() : Promise<Order[][]> {
-        //TODO
-    // }
+    public static async getAll() : Promise<Order[]> {
+        const res = await knex<SingleProductI>('orders').select("*");
+        if(res) {
+            let ret : Order[];
+            ret = [];
+            res.map(SingleProduct.fromI);
+            res.sort((a : SingleProductI, b : SingleProductI) =>{
+                if(a.order_id < b.order_id) return -1;
+                if(a.order_id > b.order_id) return 1;
+                return 0;
+            });
+            let previous = -1;
+            let singOrd : Order;
+            singOrd = {id : -1, user_id : -1, products : []};
+            for (const sing of res) {
+                if(sing.order_id != previous && previous != -1){;
+                    ret.push(new Order(singOrd));
+                    singOrd.products = [];
+                }
+                singOrd.products.push({product_id : sing.product_id, count : sing.count});
+                singOrd.id = sing.order_id;
+                singOrd.user_id = sing.user_id;
+                previous = sing.order_id;
+            }
+            ret.push(new Order(singOrd));
+            return ret;
+        }
+        else {
+            return [];
+        }
+    }
 }
