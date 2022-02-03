@@ -37,6 +37,14 @@ export class Product {
         return new Product(data, []);
     }
 
+    public static async searchFuzzy(query: string) : Promise<Product[]> {
+        const s = knex.raw("to_tsvector(name || ' ' || description) @@ to_tsquery(?)", `'${query}'`);
+        const q = await knex<ProductI>('products')
+            .select("*")
+            .where(s);
+        const proms = q.map(Product.fetchCategories);
+        return Promise.all(proms);
+    }
 
     public static async findByName(name: string) : Promise<Product | null> {
         const query = knex<ProductI>('products').select("*").where({ name }).first();
@@ -48,6 +56,11 @@ export class Product {
         else {
             return null;
         }
+    }
+
+    private static async fetchCategories(data: ProductI) : Promise<Product> {
+        const cats = await Category.categoriesOf(data.id);
+        return new Product(data, cats);
     }
 
     public static async findById(id: number) : Promise<Product | null> {

@@ -52,9 +52,9 @@
 
     <body>
         <div class="search-parent">
-            <form method="POST">
+            <form method="GET">
                 <div class="search-container">
-                    <input type='text' placeholder="Szukaj w sklepie..." />
+                    <input type='text' placeholder="Szukaj w sklepie..." name="query" value=<%= query %>/>
                     <button> Szukaj </button>
                 </div>
             </form>
