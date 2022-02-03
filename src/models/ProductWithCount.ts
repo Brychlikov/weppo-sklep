@@ -16,7 +16,7 @@ export class ProductWithCount {
     public description: string;
     public img_url: string;
 
-    public static async changeFromProduct(prod : Product, cnt : number) : Promise<ProductWithCount>{
+    public static changeFromProduct(prod : Product, cnt : number) : ProductWithCount{
         const ret = new ProductWithCount();
         ret.id = prod.id;
         ret.name = prod.name;

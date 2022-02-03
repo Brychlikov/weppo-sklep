@@ -8,6 +8,8 @@ import { cartRouter } from "../controllers/cart";
 import { searchRouter } from "../controllers/search";
 import { checkoutRouter } from "../controllers/checkout";
 import { accountRouter } from "../controllers/account";
+import { adminRouter } from "../controllers/admin";
+
 export const index = Router();
 
 index.use("/", indexRouter);
@@ -18,3 +20,4 @@ index.use("/cart", cartRouter);
 index.use("/search", searchRouter);
 index.use("/checkout", checkoutRouter);
 index.use("/account", accountRouter);
+index.use("/admin", adminRouter)

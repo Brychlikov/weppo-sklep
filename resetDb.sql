@@ -67,3 +67,4 @@ CREATE TABLE orders (
     product_id INT NOT NULL,
     count INT NOT NULL
 );
+INSERT INTO orders (user_id, order_id, product_id, count) VALUES (1,1,1,5);

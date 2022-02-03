@@ -1,5 +1,6 @@
 import { knex } from "../dbConnection";
-import { User } from "./User";
+import { Product } from "./Product";
+import { ProductWithCount } from "./ProductWithCount";
 
 
 interface SingleProductI {
@@ -51,12 +52,14 @@ class SingleProduct {
 export interface Order{
     id : number;
     user_id : number;
-    products : SingleProductNoOtherIds[];
+    // products : SingleProductNoOtherIds[];
+    products : ProductWithCount[];
 }
 export class Order {
     public id : number;
     public user_id : number;
-    public products : SingleProductNoOtherIds[];
+    // public products : SingleProductNoOtherIds[];
+    public products : ProductWithCount[];
 
     private constructor(data: Order) {
         this.id = data.id;
@@ -70,6 +73,7 @@ export class Order {
             let ret : Order[];
             ret = [];
             res.map(SingleProduct.fromI);
+            if(res.length == 0) return ret;
             const user_id = res[0].user_id;
             res.sort((a : SingleProductI, b : SingleProductI) =>{
                 if(a.order_id < b.order_id) return -1;
@@ -84,7 +88,9 @@ export class Order {
                     ret.push(new Order(singOrd));
                     singOrd.products = [];
                 }
-                singOrd.products.push({product_id : sing.product_id, count : sing.count});
+                const prod = await Product.findById(sing.product_id);
+                if(prod) singOrd.products.push(ProductWithCount.changeFromProduct(prod, sing.count));
+                else return null;
                 singOrd.id = sing.order_id;
                 previous = sing.order_id;
             }
@@ -99,14 +105,14 @@ export class Order {
     public static async createOrder(data: Order) : Promise<Order | null> {
         for(const el of data.products){
             let dod : SingleProductNoIdI;
-            dod = { order_id : data.id, product_id : el.product_id, user_id : data.user_id, count : el.count };
+            dod = { order_id : data.id, product_id : el.id, user_id : data.user_id, count : el.qt };
             const [x] = await knex<SingleProductI>('orders').insert(dod).returning("*");
             if(!x) return null;
         }
         return data;
     }
 
-    public static async getAll() : Promise<Order[]> {
+    public static async getAll() : Promise<Order[] | null> {
         const res = await knex<SingleProductI>('orders').select("*");
         if(res) {
             let ret : Order[];
@@ -125,7 +131,9 @@ export class Order {
                     ret.push(new Order(singOrd));
                     singOrd.products = [];
                 }
-                singOrd.products.push({product_id : sing.product_id, count : sing.count});
+                const prod = await Product.findById(sing.product_id);
+                if(prod) singOrd.products.push(ProductWithCount.changeFromProduct(prod, sing.count));
+                else return null;
                 singOrd.id = sing.order_id;
                 singOrd.user_id = sing.user_id;
                 previous = sing.order_id;
