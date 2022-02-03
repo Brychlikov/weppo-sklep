@@ -17,6 +17,12 @@ h2,
 h1 {
     font-weight: 400;
 }
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
 button {
     font-family: IBM Plex Mono, monospace;
     font-weight: 400;
@@ -44,7 +50,6 @@ button {
 button:hover {
     border: 1px solid var(--main-color);
 }
-/* nav */
 
 input:focus,
 button:focus {
@@ -59,6 +64,21 @@ button:focus {
 li {
     list-style-type: none;
 }
+
+/* common */
+
+.title {
+    margin: 20 0 0 0;
+    text-align: center;
+}
+
+.body-wrap {
+    margin: auto;
+    max-width: 800px;
+    margin: 60px auto 100px;
+}
+
+/* nav */
 
 .navbar {
     height: 80px;
@@ -85,12 +105,6 @@ li {
     margin: 0 20px;
 }
 
-.nav-element a {
-    text-align: center;
-    color: #000000;
-    text-decoration: none;
-}
-
 .nav-h {
     padding: 5px 10px;
 }
@@ -105,31 +119,32 @@ li {
     text-decoration: none;
 }
 
-/* title */
+@media screen and (max-width: 500px) {
+    .navbar {
+        font-size: 13px;
+    }
 
-.title {
-    margin: 20 0 0 0;
-    text-align: center;
+    .navbar-mid {
+        order: 2;
+    }
 }
 
 /* index */
+
 .container {
     display: grid;
+    width: 100%;
+
     grid-auto-columns: max-content;
     grid-auto-flow: dense;
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 25px;
     grid-template-columns: repeat(3, 1fr);
-
-    margin: 60px auto;
-    max-width: 800px;
 }
 
 .product-image {
     background-color: #e5e5e5;
     display: block;
-    /*min-height: 200px;
-    width: 100%;*/
     height: 200px;
     width: 250px;
 }
@@ -146,11 +161,6 @@ li {
     line-height: 18px;
 }
 
-.product-name a {
-    color: #000000;
-    text-decoration: none;
-}
-
 .product-price {
     font-weight: bold;
     font-size: 14px;
@@ -163,11 +173,12 @@ li {
 }
 
 /* search */
-.search-parent {
+.search-bar-container {
+    max-width: 900px;
     margin: auto;
-    width: 50%;
 }
-.search-container {
+
+.search-bar {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -179,7 +190,7 @@ li {
     font-size: 18x;
 }
 
-.search-container input {
+.search-bar input {
     font-size: 18x;
     flex: 6 1 auto;
     padding-bottom: 9px;
@@ -192,22 +203,24 @@ li {
     font-size: 16px;
 }
 
-.search-container input:focus {
+.search-bar input:focus {
     outline: 0 !important;
 }
-.search-container button {
+.search-bar button {
     font-size: 16px;
     padding: 7px;
     margin-left: 15px;
 }
+
 /* login */
 
 .login-wrap {
     text-align: center;
     padding: 1em 2em;
+    margin: 30px auto 100px;
 }
 
-.form-input {
+.login-form-input {
     font-family: IBM Plex Mono, monospace;
     letter-spacing: 0.1em;
     display: inline-block;
@@ -240,7 +253,7 @@ li {
 
 /* product view */
 
-.productview-container {
+.productview-wrap {
     display: flex;
 }
 
@@ -284,11 +297,10 @@ li {
 }
 
 /* cart */
-
 .cart-container {
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    max-width: 900px;
     margin: auto;
 }
 
@@ -324,11 +336,6 @@ li {
 
 .cart-info h2 {
     margin-top: 10px;
-}
-
-.cart-info a {
-    color: #000000;
-    text-decoration: none;
 }
 
 .cart-remove {
@@ -395,19 +402,35 @@ li {
     margin: 10px 5px;
 }
 
-.checkout-row input[type="checkbox"] {
-    float: left;
-    border: 1px solid #000;
+.checkout-checkbox {
+    display: flex;
+    width: 100%;
+    margin: 10px 5px;
 }
 
-.checkout-row input[type="text"]:invalid {
+.checkout-checkbox input[type="checkbox"] {
+    display: inline-block;
+    border: 1px solid #000;
+    margin: 0 40px;
+}
+
+.checkout-row label {
+    margin-top: 5px;
+    padding: 15px;
+}
+
+.checkout-row input:invalid {
     border-color: #ff0000;
 }
 
-.checkout-row input[type="text"] {
+.checkout-checkbox-label {
+    display: inline-block;
+}
+
+.checkout-row input {
     float: right;
-    padding: 5px;
-    width: 300px;
+    padding: 5px 0;
+    width: 60%;
 }
 .checkout-row label {
     margin-top: 5px;
@@ -415,6 +438,7 @@ li {
 }
 
 .checkout-container button {
+    width: 100%;
     margin-top: 10px;
     font-size: 16px;
     padding: 15px;

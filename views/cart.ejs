@@ -2,10 +2,13 @@
     <%- include('templates/nav', {url: url, cart_item_count: cart_item_count}) %>
 
         <body>
-            <div class="body-wrap">
-                <% if (!products.length) { %>
+            <% if (!products.length) { %>
+                <h2 class="title">
+                    Twój koszyk jest pusty
+                </h2>
+                <% } else { %>
                     <h2 class="title">
-                        Twój koszyk jest pusty
+                        Zawartość koszyka
                     </h2>
                     <% } else { %>
                         <h2 class="title">
@@ -33,16 +36,22 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="cart-info">
-                                        <div class="cart-quantity">
-                                            Ilość: <%= product.qt %>
-
-                                        </div>
-                                        <div class="cart-quantity">
-                                            Razem: <%= product.price * product.qt %>zł
-                                        </div>
+                                    <div class="cart-remove">
+                                        <form method="POST">
+                                            <button class="cart-remove" name="remove_button_id"
+                                                value="<%= product.id%>"> Usuń </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="cart-info">
+                                    <div class="cart-quantity">
+                                        Ilość: <%= product.qt %>
 
                                     </div>
+                                    <div class="cart-quantity">
+                                        Razem: <%= product.price * product.qt %>zł
+                                    </div>
+
                                 </div>
                                 <% }); %>
                                     <div class="cart-summary">
@@ -56,9 +65,12 @@
                                             <button class="checkout-btn" name=""> Do kasy > </button>
                                         </form>
                                     </div>
-                                    <% } %>
+                                    <form action="/checkout">
+                                        <button class="checkout-btn" name=""> Do kasy > </button>
+                                    </form>
                         </div>
-            </div>
+                        <% } %>
+                            </div>
         </body>
 
         </html>

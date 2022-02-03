@@ -3,7 +3,7 @@
     <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
-            <div class="productview-container">
+            <div class="productview-wrap">
                 <div class="productview-image">
                     <img src='<%= product.img_url %>' alt=<%=product.name %> >
                 </div>
@@ -14,7 +14,7 @@
                     <div class="productview-price">
                         <%= product.price %>zł
                     </div>
-                    <div class="product-button area">
+                    <div>
                         <form method="POST">
                             <button class="product-cart-btn" name="button_id" value='<%= product.id %>' type="submit">Do
                                 koszyka</button>
