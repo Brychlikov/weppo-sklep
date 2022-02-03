@@ -6,7 +6,7 @@ import { Product } from "../models/Product";
 import { authorize } from "./authorize";
 import { body, validationResult } from "express-validator";
 import session from "express-session";
-
+import {User} from "../models/User";
 function uniqueFilename() : string{
     return Date.now().toString() + Math.round(Math.random() * 1e7).toString();
 }
@@ -49,12 +49,13 @@ declare module 'express-session' {
     }
 }
 
-productsRouter.get('/add', authorize("Admin"), (req: Request, res: Response) => {
+productsRouter.get('/add', authorize("Admin"), async (req: Request, res: Response) => {
     const name = req.session.productSession?.name;
     const price = req.session.productSession?.price;
     const description = req.session.productSession?.description;
     const error = req.session.productSession?.error;
-    res.render('add_product', { name, price, description, error, user : req.signedCookies.user, url : "/products/add",
+    const user = await User.findByName(req.signedCookies.user);
+    res.render('add_product', { name, price, description, error, user : user, url : "/products/add",
     cart_item_count : req.signedCookies.cart_item_count  });
 });
 
@@ -102,19 +103,41 @@ productsRouter.post(
     const imgUrl = req.file?.path.substring(req.file?.path.indexOf('/'));
     prodData.img_url = imgUrl;
     const _p = await Product.createProduct(prodData);
-    res.render('products/added', { user : req.signedCookies.user, url : "/products/new",
+    const user = await User.findByName(req.signedCookies.user);
+    res.render('products/added', { user : user, url : "/products/new",
     cart_item_count : req.signedCookies.cart_item_count });
 });
 
-productsRouter.get("/:id", (req, res) => {
-    (async function () {
-        const prod = await Product.findById(Number(req.params.id));
-        if(req.signedCookies.user){
-            res.render('product', { product : prod, user : req.signedCookies.user, url : `/product/${req.params.id}`,
-            cart_item_count : req.signedCookies.cart_item_count });
-        }else{
-            res.render('product', { product : prod, url : `/product/${req.params.id}`,
-            cart_item_count : req.signedCookies.cart_item_count });
+productsRouter.get("/:id", async (req, res) => {
+    const prod = await Product.findById(Number(req.params.id));
+    if(req.signedCookies.user){
+        const user = await User.findByName(req.signedCookies.user);
+        res.render('product', { product : prod, user : user, url : `/product/${req.params.id}`,
+        cart_item_count : req.signedCookies.cart_item_count });
+    }else{
+        res.render('product', { product : prod, url : `/product/${req.params.id}`,
+        cart_item_count : req.signedCookies.cart_item_count });
+    }
+});
+
+
+productsRouter.post("/:id", async (req, res) => {
+    if (req.signedCookies.user) {
+        const addedProductId = req.body.button_id;
+        if (addedProductId) {
+            res.cookie(
+                "cart_item_count",
+                Number(req.signedCookies.cart_item_count) + 1,
+                { signed: true },
+            );
+            // console.log(Number(req.signedCookies.cart_item_count) + 1);
+            let cur_cart = req.signedCookies.cart;
+            if (!cur_cart) cur_cart = [];
+            cur_cart.push(addedProductId);
+            res.cookie("cart", cur_cart, { signed: true });
+            res.redirect(`/products/${req.params.id}`);
         }
-    })();
+    } else {
+        res.redirect("/login?message=Zaloguj się żeby dodawać do koszyka");
+    }
 });

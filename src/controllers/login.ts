@@ -18,7 +18,7 @@ function assertGet(obj: any, prop: string): string {
 }
 
 userRouter.get("/", (req: Request, res: Response) => {
-    console.log(req.query.message);
+    // console.log(req.query.message);
     if(req.query.message){
         res.render("login.ejs", { message : req.query.message, url : "/login", 
         cart_item_count : req.signedCookies.cart_item_count });
@@ -26,7 +26,7 @@ userRouter.get("/", (req: Request, res: Response) => {
     else res.render("login.ejs", { url : "/login", cart_item_count : req.signedCookies.cart_item_count });
 });
 
-userRouter.post("/", (req, res) => {
+userRouter.post("/", async (req, res) => {
     let result = false;
     const username = assertGet(req.body, "txtUser");
     const user = UserModel.findByName(username);

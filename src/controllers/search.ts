@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import express from "express";
 import { Product } from "../models/Product";
+import {User } from "../models/User";
 
 export const searchRouter = express.Router();
 
@@ -14,7 +15,8 @@ searchRouter.get("/", async (req: Request<unknown, unknown, unknown, QueryI>, re
     const prods = await Product.searchFuzzy(query);
     
     if(req.signedCookies.user){
-        res.render("search.ejs", { user : req.signedCookies.user, url : "/search",
+        const user = await User.findByName(req.signedCookies.user);
+        res.render("search.ejs", { user, url : "/search",
         cart_item_count : req.signedCookies.cart_item_count, query, products: prods });
     }else{
         res.render("search.ejs", { url : "/search",

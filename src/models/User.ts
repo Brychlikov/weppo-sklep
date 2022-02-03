@@ -14,7 +14,7 @@ interface UserNoIdI {
 }
 
 export class User {
-    private id: number;
+    public id: number;
     public name: string;
     public password: string;
     public role: string;

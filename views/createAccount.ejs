@@ -1,32 +1,30 @@
 <!-- createAccount.ejs -->
 <%- include('templates/head') %>
-    <%- include('templates/nav') %>
+    <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
-            <form method="POST">
-                <h1 class="title">
-                    Nowe konto
-                </h1>
-                <div class="login-wrap">
-                    <form method="POST">
-                        <div id='login'>
-                            <div class="form-field">
-                                <input class="form-input" type='text' name='txtUser' placeholder="Nazwa użytkownika" />
-                            </div>
-                            <div class="form-field">
-                                <input class="form-input" type='password' name='txtPwd' placeholder="Hasło" />
-                            </div>
-                            <div>
-                                <button class="login-btn">Stwórz konto</button>
-                            </div>
-                            <% if ( locals.message ) { %>
-                                <div class='incorrect-login-message'>
-                                    <%= locals.message %>
+            <div class="body-wrap">
+                <form method="POST">
+                    <h1 class="title">
+                        Nowe konto
+                    </h1>
+                    <div class="login-wrap">
+                        <form method="POST">
+                            <div class="login-container" id='login'>
+                                <input class="login-form-input" type='text' name='txtUser' placeholder="Email" />
+                                <input class="login-form-input" type='password' name='txtPwd' placeholder="Hasło" />
+                                <div>
+                                    <button class="login-btn">Stwórz konto</button>
                                 </div>
-                                <% } %>
-                        </div>
-                    </form>
-                </div>
+                                <% if ( locals.message ) { %>
+                                    <div class='incorrect-login-message'>
+                                        <%= locals.message %>
+                                    </div>
+                                    <% } %>
+                            </div>
+                        </form>
+                    </div>
+            </div>
             </form>
         </body>
 

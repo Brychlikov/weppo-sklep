@@ -5,6 +5,10 @@ import { authorize } from "./authorize";
 import { count } from "console";
 import process from "process";
 import cookieParser from "cookie-parser";
+import { sign } from "crypto";
+import { userRouter } from "./login";
+import { ProductWithCount } from "../models/ProductWithCount";
+import { User } from "../models/User";
 /**
  * GET /
  * Home page.
@@ -14,70 +18,41 @@ export const cartRouter = express.Router();
 cartRouter.use(express.urlencoded({ extended: true }));
 cartRouter.use(cookieParser(process.env.COOKIE_SECRET));
 
-
-interface ProductWithCount {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    img_url: string;
-    qt : number;
-}
-class ProductWithCount {
-    public id : number;
-    public name: string;
-    public price: number;
-    public description: string;
-    public img_url: string;
-}
-function change(prod : Product, cnt : number) : ProductWithCount{
-    const ret = new ProductWithCount();
-    ret.id = prod.id;
-    ret.name = prod.name;
-    ret.price = prod.price;
-    ret.img_url = prod.img_url;
-    ret.qt = cnt;
-    return ret;
-}
-
 cartRouter.get(
     "/",
     authorize("Admin", "Normal"),
     (req: Request, res: Response) => {
         (async function () {
-            const products = [];
-            const prod_cnt = {};
-            if (req.signedCookies.cart) {
-                const pom = req.signedCookies.cart;
-                pom.map(Number);
-                pom.sort((a : number, b : number)=>{
-                    if(a < b) return -1;
-                    if(a > b) return 1;
-                    return 0;
-                });
-                let previous = -1;
-                let cnt = 0;
-                for (const prod_id of pom) {
-                    if(prod_id != previous && previous != -1){
-                        const prod = await Product.findById(previous);
-                        if(prod) products.push(change(prod, cnt));
-                        cnt = 0;
-                    }
-                    cnt++;
-                    previous = prod_id;
-                }
-                if(previous != -1){
-                    const prod = await Product.findById(previous);
-                    if(prod) products.push(change(prod, cnt));
-                }
-            }
+            let products : ProductWithCount[];
+            products = [];
             let sum = 0;
-            for(const x of products){
-                sum += x.price*x.qt;
+            if(req.signedCookies.cart_item_count){ 
+                products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
+                sum = ProductWithCount.getCostOfAllProducts(products);
             }
-            // products = await Product.getAll();
-            res.render("cart", { products: products, sum : sum, url : "/cart", 
-            cart_item_count : req.signedCookies.cart_item_count }); // user : req.user
+            const user = await User.findByName(req.signedCookies.user);
+            res.render("cart", {
+                products: products, sum: sum, url: "/cart",
+                cart_item_count: req.signedCookies.cart_item_count,
+                user: user,
+            });
         })();
     },
 );
+
+cartRouter.post("/", authorize("Normal", "Admin"), (req : Request, res : Response) => {
+    const deletedProductId = req.body.remove_button_id;
+    console.log(deletedProductId);
+    if(deletedProductId){
+        let cnt = 0;
+        const cur_cart = [];
+        for(const prod of req.signedCookies.cart){
+            if(prod == deletedProductId) cnt++;
+            else cur_cart.push(prod);
+        }
+        res.cookie("cart_item_count", Number(req.signedCookies.cart_item_count) - cnt, { signed : true });
+        res.cookie("cart", cur_cart, { signed : true });
+    }
+    res.redirect("/cart");
+});
+

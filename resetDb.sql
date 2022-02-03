@@ -56,3 +56,15 @@ CREATE TABLE users (
     password VARCHAR(200) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
+
+INSERT INTO users (name, password, role) VALUES ('admin@admin.admin', '$2b$10$cxI21rRu0FXO65iTFwRIreKmbk35Qn4/iUS1GHHZpsEYsK3wWiijO', 'Admin');
+
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id INT NOT NULL,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    count INT NOT NULL
+);
+INSERT INTO orders (user_id, order_id, product_id, count) VALUES (1,1,1,5);

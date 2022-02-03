@@ -1,20 +1,24 @@
 <!-- add_product.ejs -->
 <%- include('templates/head') %>
-    <%- include('templates/nav') %>
+    <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
-            <form method="POST" action="/products/new" enctype="multipart/form-data">
-                <div>Formularz dodawania produktów:</div>
-                <div>Dodaj zdjecie <input type="file" name="productImage" /></div>
-                <div>Nazwa produktu <input type="text" name="name" value=<%= name %>></div>
-                <div>Cena <input type="text" name="price" value=<%= price %>></div>
-                <div>Opis <input type="text" name="description" value=<%= description %>></div>
-                <% if (error) { %>
-                    <div> <%= error %> </div>
-                <%}%>
-                <div><button> Dodaj produkt </button></div>
-            </form>
+            <div class="add-container">
+                <form method="POST" action="/products/new" enctype="multipart/form-data">
+                    <h2 class="add-title">Formularz dodawania produktów:</h2>
+                    <div class="add-input">Dodaj zdjecie <input type="file" name="productImage" /></div>
+                    <div class="add-input">Nazwa produktu <input type="text" name="name" value=<%=name %>></div>
+                    <div class="add-input">Cena <input type="text" name="price" value=<%=price %>></div>
+                    <div class="add-input-desc">Opis <input type="text" name="description" value=<%=description %>>
+                    </div>
+                    <% if (error) { %>
+                        <div class='incorrect-login-message'>
+                            <%= error %>
+                        </div>
+                        <%}%>
+                            <div class="add-input"><button> Dodaj produkt </button></div>
+                </form>
+            </div>
         </body>
 
-
-</html>
+        </html>

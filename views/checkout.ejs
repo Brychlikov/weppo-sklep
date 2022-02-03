@@ -1,0 +1,63 @@
+<!-- checkout.ejs -->
+<%- include('templates/head') %>
+    <%- include('templates/nav', {url: url, cart_item_count}) %>
+
+        <body>
+            <div class="body-wrap">
+                <h2 class="title"> Dane adresowe </h2>
+                <div class="checkout-container">
+                    <form method="POST">
+                        <div class="checkout-row">
+                            <label for="given-name">Imię:*</label>
+                            <input type="text" id="given-name" name="given-name" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="family-name">Nazwisko:*</label>
+                            <input type="text" id="family-name" name="family-name" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="address-level1">Adres:*</label>
+                            <input type="text" id="ddress-line1" name="ddress-line1" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="address-line2">Nr mieszkania:*</label>
+                            <input type="text" id="address-line2" name="address-line2" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="city">Miasto:*</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="postal-code">Kod pocztowy:*</label>
+                            <input type="text" id="postal-code" name="postal-code" required>
+                        </div>
+                        <div class="checkout-row">
+                            <label for="phone">Nr telefonu:*</label>
+                            <input type="text" id="phone" name="phone" required>
+                        </div>
+                        <div class="checkout-checkbox">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <div class="checkout-ckeckbox-label">
+                                <label for="terms">Przeczytał_m i akceptuję regulamin*</label>
+                            </div>
+
+                        </div>
+                        <div class="checkout-checkbox">
+                            <input type="checkbox" id="terms2" name="terms2" required>
+                            <div class="checkout-ckeckbox-label">
+                                <label for="terms2">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+                                    rejestracji
+                                    konta i realizacji zamówienia*</label>
+                            </div>
+
+                        </div>
+                        <div class="checkout-row">
+                            * - wymagane
+                        </div>
+                        <div><button>Zamawiam i płacę > </button></div>
+                    </form>
+                </div>
+            </div>
+        </body>
+
+        </html>
