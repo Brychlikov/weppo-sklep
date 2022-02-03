@@ -28,7 +28,7 @@ export class ProductWithCount {
 
     public static async changeFromProductsId(data : string[]) : Promise<ProductWithCount[]>{
         const products = [];
-        console.log(data);
+        // console.log(data);
         const pom = data.map(Number).sort((a: number, b: number) => (a < b ? -1 : ((a > b) ? 1 : 0)));
         let previous = -1;
         let cnt = 0;

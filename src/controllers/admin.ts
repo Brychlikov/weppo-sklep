@@ -27,3 +27,13 @@ adminRouter.get(
         });
     },
 );
+
+adminRouter.post(
+    "/",
+    authorize("Admin"),
+    (req: Request, res: Response) => {
+        res.cookie("user", 0, { maxAge : -1 });
+        res.cookie("cart", 0, { maxAge : -1 });
+        res.redirect("/");
+    },
+);
