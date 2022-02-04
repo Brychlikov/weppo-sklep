@@ -8,6 +8,13 @@ body {
     font-weight: 300;
     letter-spacing: 0.1em;
     --main-color: #0084ff;
+    --bg: #fff;
+    --fg: #000;
+    --red: #f00;
+    --light-red: #fce2e2;
+    --dark-red: #830b0b;
+    --light-grey: #c0c0c0;
+    --img-bg: #e5e5e5;
 }
 
 input {
@@ -19,7 +26,7 @@ h1 {
 }
 
 a {
-    color: #000000;
+    color: var(--fg);
     text-decoration: none;
 }
 
@@ -33,18 +40,10 @@ button {
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    border: 1px solid #000;
-    /*
-    padding: 0.5em 2em;
-    margin-top: 15px;
-    line-height: 1.5;
-    
-    color: #fff;
-    background-color: #000;
-    */
+    border: 1px solid var(--fg);
     font-size: 16px;
-    background-color: #fff;
-    color: #000;
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 button:hover {
@@ -58,7 +57,7 @@ button:focus {
 }
 
 :required {
-    border: 1px solid #000;
+    border: 1px solid var(--fg);
 }
 
 li {
@@ -67,6 +66,9 @@ li {
 
 /* common */
 
+.red {
+    color: var(--red);
+}
 .title {
     margin: 20 0 0 0;
     text-align: center;
@@ -114,7 +116,7 @@ li {
 }
 
 #active.nav-h {
-    border: 1px solid #000;
+    border: 1px solid var(--fg);
 }
 
 .nav-element a:hover {
@@ -141,7 +143,7 @@ li {
     margin: auto;
 }
 .product-image {
-    background-color: #e5e5e5;
+    background-color: var(--img-bg);
     display: block;
     height: 200px;
     width: 250px;
@@ -192,11 +194,11 @@ li {
     flex: 6 1 auto;
     padding-bottom: 9px;
     line-height: 1.5em;
-    color: #000;
+    color: var(--fg);
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--fg);
     font-size: 16px;
 }
 
@@ -210,8 +212,8 @@ li {
 }
 
 .search-bar button:disabled {
-    color: rgb(192, 192, 192);
-    border-color: rgb(192, 192, 192);
+    color: var(--light-grey);
+    border-color: var(--light-grey);
 }
 
 .search-title {
@@ -243,10 +245,10 @@ li {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.5em;
-    color: #000000;
+    color: var(--fg);
     margin-top: 10px;
-    background-color: #fff;
-    border: 1px solid #000;
+    background-color: var(--bg);
+    border: 1px solid var(--fg);
 }
 .login-form-input input {
     margin: auto;
@@ -257,8 +259,8 @@ li {
     font-weight: 400;
     margin-top: 15px;
     padding-inline: 5px;
-    color: #830b0b;
-    background-color: #fce2e2;
+    color: var(--dark-red);
+    background-color: var(--light-red);
 }
 
 .login-btn {
@@ -281,7 +283,7 @@ li {
 .productview-image {
     flex: 1 1 auto;
     margin: 20px 50px 20px 100px;
-    background-color: #e5e5e5;
+    background-color: var(--img-bg);
     display: block;
     height: 700px;
     width: 250px;
@@ -325,13 +327,13 @@ li {
     flex: 1 1 auto;
     display: flex;
     width: 100%;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--fg);
 }
 
 .cart-image {
     flex: 1 1 auto;
     margin: 10px 20px 10px 0;
-    background-color: #e5e5e5;
+    background-color: var(--img-bg);
     display: block;
     height: 200px;
     width: 250px;
@@ -427,7 +429,7 @@ li {
 
 .checkout-checkbox input[type="checkbox"] {
     display: inline-block;
-    border: 1px solid #000;
+    border: 1px solid var(--fg);
     margin: 0 40px;
 }
 
@@ -437,7 +439,7 @@ li {
 }
 
 .checkout-row input:invalid {
-    border-color: #ff0000;
+    border-color: var(--red);
 }
 
 .checkout-checkbox-label {
@@ -496,19 +498,11 @@ li {
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    border: 1px solid #000;
+    border: 1px solid var(--fg);
     padding: 5px 10px;
 
-    /*
-    padding: 0.5em 2em;
-    margin-top: 15px;
-    line-height: 1.5;
-    
-    color: #fff;
-    background-color: #000;
-    */
-    background-color: #fff;
-    color: #000;
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 .add-input input[type="file"]::file-selector-button:hover {
@@ -555,7 +549,7 @@ li {
     margin: 20px 0;
     font-size: 16px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--fg);
 }
 
 .order-id {
@@ -738,7 +732,7 @@ li {
     }
 
     .checkout-checkbox input[type="checkbox"] {
-        border: 1px solid #000;
+        border: 1px solid var(--fg);
         margin: 10px 0;
     }
 }

@@ -1,48 +1,49 @@
 <!-- checkout.ejs -->
-<%- include('templates/head') %>
+<%- include('templates/head', {page_title: 'Dane adresowe' }) %>
     <%- include('templates/nav', {url: url, cart_item_count}) %>
 
         <body>
+
             <div class="body-wrap">
                 <h2 class="title"> Dane adresowe </h2>
                 <div class="checkout-container">
                     <form method="POST">
                         <div class="checkout-row">
-                            <label for="given-name">Imię:*</label>
+                            <label for="given-name">Imię:<span class="red">*</span></label>
                             <input type="text" id="given-name" name="given-name" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="family-name">Nazwisko:*</label>
+                            <label for="family-name">Nazwisko:<span class="red">*</span></label>
                             <input type="text" id="family-name" name="family-name" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="address-level1">Adres:*</label>
+                            <label for="address-level1">Adres:<span class="red">*</span></label>
                             <input type="text" id="ddress-line1" name="ddress-line1" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="address-line2">Nr mieszkania:*</label>
+                            <label for="address-line2">Nr mieszkania:<span class="red">*</span></label>
                             <input type="text" id="address-line2" name="address-line2" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="city">Miasto:*</label>
+                            <label for="city">Miasto:<span class="red">*</span></label>
                             <input type="text" id="city" name="city" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="postal-code">Kod pocztowy:*</label>
+                            <label for="postal-code">Kod pocztowy:<span class="red">*</span></label>
                             <input type="text" id="postal-code" name="postal-code" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="email">Email:*</label>
+                            <label for="email">Email:<span class="red">*</span></label>
                             <input type="text" id="postal-code" name="email" required>
                         </div>
                         <div class="checkout-row">
-                            <label for="phone">Nr telefonu:*</label>
+                            <label for="phone">Nr telefonu:<span class="red">*</span></label>
                             <input type="text" id="phone" name="phone" required>
                         </div>
                         <div class="checkout-checkbox">
                             <input type="checkbox" id="terms" name="terms" required>
                             <div class="checkout-ckeckbox-label">
-                                <label for="terms">Przeczytał_m i akceptuję regulamin*</label>
+                                <label for="terms">Przeczytał_m i akceptuję regulamin<span class="red">*</span></label>
                             </div>
 
                         </div>
@@ -51,12 +52,12 @@
                             <div class="checkout-ckeckbox-label">
                                 <label for="terms2">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
                                     rejestracji
-                                    konta i realizacji zamówienia*</label>
+                                    konta i realizacji zamówienia<span class="red">*</span></label>
                             </div>
 
                         </div>
                         <div class="checkout-row">
-                            * - wymagane
+                            <span class="red">*</span> - wymagane
                         </div>
                         <% if ( locals.message ) { %>
                             <div class='incorrect-login-message'>
