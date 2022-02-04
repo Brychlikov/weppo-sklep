@@ -19,7 +19,7 @@
                     <h2> Zamówienia: </h2>
                     <% orders.forEach( order=> { %>
                         <div class="order">
-                            <div cless="order-id">
+                            <div class="order-id">
                                 #<%= order.id %>
                             </div>
                             <div class="order-products">
@@ -40,7 +40,7 @@
                                             <%= order.totalCost %> zł
                                         </p>
                             </div>
-                            <div cless="order-user">
+                            <div class="order-user">
                                 Użytkownik #<%= order.user_id %>
                             </div>
                         </div>
@@ -50,7 +50,22 @@
                 </div>
                 <div class="account-container">
                     <h2> Użytkownicy: </h2>
+                    <% users.forEach( user=> { %>
+                        <div class="order">
+                            <div class="order-id">
+                                #<%= user.id %>
+                            </div>
+                            <div class="order-products">
+                                <%= user.name %>
+                            </div>
+                            <div class="order-user">
+                                <% if (user.role=="Admin" ) { %>
+                                    Administrator
+                                    <%} %>
+                            </div>
+                        </div>
 
+                        <% }); %>
                 </div>
 
         </body>
