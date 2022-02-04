@@ -6,6 +6,10 @@ dotenv.config();
 
 export const knex = knexMod({
     client: "pg",
-    connection: process.env.DATABASE_URL });
+    connection: { 
+        connectionString: process.env.DATABASE_URL, 
+        ssl: { rejectUnauthorized: false },
+    }
+ });
 
-export const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL});
+export const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false }});
