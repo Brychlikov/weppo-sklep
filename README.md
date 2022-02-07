@@ -18,6 +18,11 @@ Aplikacja potrzebuje następujących zmiennych środowiskowych:
 `DATABASE_URL` - connection string do instancji PostgreSQL. Wymagane jest połączenie SSL.  
 `COOKIE_SECRET` - do podpisywania ciastek
 
+## Panel administracyjny
+Panel dostępny jest po zalogowaniu jako administrator  
+Login: `admin@admin.admin`  
+Hasło: `admin`
+
 ## Wyszukiwanie w języku polskim
 Dla instalacji PostgreSQL niewspierających domyślnie full-text search po polsku, w folderze `sjp-postgres-gen` znajduje się skrypt taką możliwość dodający.
 
