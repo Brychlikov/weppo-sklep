@@ -1,4 +1,5 @@
 # Projekt sklepu internetowego 
+[link do repozytorium](https://github.com/Brychlikov/weppo-sklep/)
 
 #### Autorzy
 - Artur Krzyżyński
