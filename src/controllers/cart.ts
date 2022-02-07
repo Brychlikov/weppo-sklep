@@ -26,7 +26,7 @@ cartRouter.get(
             let products : ProductWithCount[];
             products = [];
             let sum = 0;
-            if(req.signedCookies.cart_item_count){ 
+            if(req.signedCookies.cart_item_count != 0){ 
                 products = await ProductWithCount.changeFromProductsId(req.signedCookies.cart);
                 sum = ProductWithCount.getCostOfAllProducts(products);
             }
