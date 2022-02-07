@@ -13,6 +13,7 @@
 - EJs
 
 ## Uruchamianie
+Do utworzenia/wyczyszczenia tabel służy skrypt `resetDb.sql`.  
 Aplikacja potrzebuje następujących zmiennych środowiskowych:
 `DATABASE_URL` - connection string do instancji PostgreSQL. Wymagane jest połączenie SSL.  
 `COOKIE_SECRET` - do podpisywania ciastek
