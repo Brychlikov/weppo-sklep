@@ -1,31 +1,33 @@
 <!-- added.ejs -->
-<%- include('templates/head') %>
-    <%- include('templates/nav', {url: url, cart_item_count}) %>
+<% const name=product.name %>
+    <%- include('templates/head', {page_title: name }) %>
+        <%- include('templates/nav', {url: url, cart_item_count}) %>
 
-        <body>
-            <div class="productview-wrap">
-                <div class="productview-image">
-                    <img src='<%= product.img_url %>' alt=<%=product.name %> >
+            <body>
+                <div class="productview-wrap">
+                    <div class="productview-image">
+                        <img src='<%= product.img_url %>' alt=<%=product.name %> >
+                    </div>
+                    <div class="productview-info">
+                        <h2 class="productview-name">
+                            <%= product.name %>
+                        </h2>
+                        <div class="productview-price">
+                            <%= product.price %>zł
+                        </div>
+                        <div>
+                            <form method="POST">
+                                <button class="product-cart-btn" name="button_id" value='<%= product.id %>'
+                                    type="submit">Do
+                                    koszyka</button>
+                                <!-- <button class="cart-btn" id='<%= product.id %>'> Do koszyka </button> -->
+                            </form>
+                        </div>
+                        <div class="productview-desc">
+                            <%= product.description %>
+                        </div>
+                    </div>
                 </div>
-                <div class="productview-info">
-                    <h2 class="productview-name">
-                        <%= product.name %>
-                    </h2>
-                    <div class="productview-price">
-                        <%= product.price %>zł
-                    </div>
-                    <div>
-                        <form method="POST">
-                            <button class="product-cart-btn" name="button_id" value='<%= product.id %>' type="submit">Do
-                                koszyka</button>
-                            <!-- <button class="cart-btn" id='<%= product.id %>'> Do koszyka </button> -->
-                        </form>
-                    </div>
-                    <div class="productview-desc">
-                        <%= product.description %>
-                    </div>
-                </div>
-            </div>
-        </body>
+            </body>
 
-        </html>
+            </html>

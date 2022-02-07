@@ -1,19 +1,31 @@
-<%- include('templates/head') %>
+<%- include('templates/head', {page_title: 'Szukaj' }) %>
     <%- include('templates/nav', {url: url, cart_item_count}) %>
+
+        <script type="text/javascript">
+            function btnActivation() {
+                if (!document.getElementById("search-bar").value.length) {
+                    document.getElementById("search-btn").disabled = true;
+                } else {
+                    document.getElementById("search-btn").disabled = false;
+                }
+            }  
+        </script>
 
         <body>
             <div class="search-bar-container">
                 <form method="GET">
                     <div class="search-bar">
-                        <input type='text' placeholder="Szukaj w sklepie..." name="query" />
-                        <button> Szukaj </button>
+                        <input type='text' id="search-bar" placeholder="Szukaj w sklepie..." name="query"
+                            onkeyup="btnActivation()" />
+                        <button id="search-btn" disabled> Szukaj </button>
+
                     </div>
                 </form>
             </div>
-            <% if ( locals.products ) { %>
+            <% if ( locals.products && products.length ) { %>
                 <div class="body-wrap">
                     <h2 class="search-title">
-                        Pasujące produkty
+                        Produkty pasujące do "<%= query %>":
                     </h2>
                     <div class="container">
                         <% products.forEach( product=> { %>
@@ -43,7 +55,12 @@
                             <% }); %>
                     </div>
                 </div>
-                <% } %>
+                <% } else if (locals.query) { %>
+                    <div class="body-wrap">
+                        <h2 class="title">
+                            Nie znaleziono produktów dla "<%= query %>" :(
+                        </h2>
+                        <% } %>
         </body>
 
         </html>

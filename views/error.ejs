@@ -1,14 +1,16 @@
 <!-- error.ejs -->
-<%- include('templates/head') %>
+<%- include('templates/head', {page_title: 'Błąd' }) %>
 
     <body>
-        <h1 class="title">
-            <%= title %>
-        </h1>
-        <div class="error-message">
-            <p>
-                <%= message %>
-            </p>
+        <div class="body-wrap">
+            <h1 class="title">
+                <%= title %>
+            </h1>
+            <div class="error-message">
+                <p>
+                    <%= message %>
+                </p>
+            </div>
         </div>
     </body>
 
