@@ -30,12 +30,12 @@
                     <div class="container">
                         <% products.forEach( product=> { %>
                             <div class="product">
-                                <a class="product-image" href="/product/<%= product.id %>">
+                                <a class="product-image" href="/products/<%= product.id %>">
                                     <img src='<%= product.img_url %>' alt=<%=product.name %> >
                                 </a>
                                 <div class="product-label">
                                     <h2 class="product-name">
-                                        <a href="/product/<%= product.id %>">
+                                        <a href="/products/<%= product.id %>">
                                             <%= product.name %>
                                         </a>
                                     </h2>
@@ -45,10 +45,17 @@
                                         </p>
                                     </div>
                                     <div class="product-button area">
-                                        <form method="POST">
-                                            <button class="cart-btn" id='<%= product.id %>'> Do koszyka
-                                            </button>
-                                        </form>
+                                        <% if (locals.user) { %>
+                                            <form method="POST" action="/">
+                                                <button class="cart-btn" value='<%= product.id %>' name="button_id"> Do koszyka
+                                                </button>
+                                            </form>
+                                        <% } else { %>
+                                            <form method="POST" action="/annonymous">
+                                                <button class="cart-btn" value='<%= product.id %>' name="button_id"> Do koszyka
+                                                </button>
+                                            </form>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

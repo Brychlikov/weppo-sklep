@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import express from "express";
 import { Product } from "../models/Product";
 import {User } from "../models/User";
+import { authorize } from "./authorize";
 
 export const searchRouter = express.Router();
 
