@@ -1,60 +1,25 @@
-# Express TypeScript template
+# Projekt sklepu internetowego 
 
-# Pre-reqs
+#### Autorzy
+- Artur Krzyżyński
+- Karolina Lubczańska
+- Bogdan Rychlikowski
 
-- Install [Node.js](https://nodejs.org/en/)
-- Install [VS Code](https://code.visualstudio.com/)
+## Instancja hostowana na Heroku: [link](https://polar-refuge-61445.herokuapp.com/annonymous)
 
-# Getting started
+## Stos technologiczny
+- Express
+- PostgreSQL
+- EJs
 
-- Clone the repository
+## Uruchamianie
+Aplikacja potrzebuje następujących zmiennych środowiskowych:
+`DATABASE_URL` - connection string do instancji PostgreSQL. Wymagane jest połączenie SSL.  
+`COOKIE_SECRET` - do podpisywania ciastek
 
-```
-git clone https://github.com/greenroach/express-ts-template.git
-```
-
-- Install dependencies
-
-```
-cd <project_name>
-npm install
-```
-
-- Build and run the project
-
-```
-npm run build
-npm start
-```
-
-Navigate to `http://localhost:3000`
-
-### Using the debugger in VS Code
-
-Debugging is one of the places where VS Code really shines over other editors.
-Node.js debugging in VS Code is easy to setup and even easier to use.
-This project comes pre-configured with everything you need to get started.
-
-When you hit `F5` in VS Code, it looks for a top level `.vscode` folder with a `launch.json` file.
-In this file, you can tell VS Code exactly what you want to do:
-
-```json
-{
-  "type": "node",
-  "request": "attach",
-  "name": "Attach by Process ID",
-  "processId": "${command:PickProcess}",
-  "protocol": "inspector"
-}
-```
-
-This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
-We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
-
-With this file in place, you can hit `F5` to attach a debugger.
-You will probably have multiple node processes running, so you need to find the one that shows `node dist/server.js`.
-Now just set your breakpoints and go!
+## Wyszukiwanie w języku polskim
+Dla instalacji PostgreSQL niewspierających domyślnie full-text search po polsku, w folderze `sjp-postgres-gen` znajduje się skrypt taką możliwość dodający.
 
 ---
 
-Based on [TypeScript Node Starter](https://github.com/Microsoft/TypeScript-Node-Starter) and [Express Generator](https://github.com/expressjs/generator)
+Do boilerplate'u dla express/ts użyliśmy [express-ts-template](https://github.com/greenroach/express-ts-template)
