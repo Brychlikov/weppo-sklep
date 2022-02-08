@@ -42,6 +42,7 @@ createAccountRouter.post("/", (req, res) => {
                 res.redirect(
                     "/createAccount?message=Na ten email istnieje już konto",
                 );
+                return;
             }
             userData.password = await hash(password, 10);
             const d = await User.addUser(userData);
