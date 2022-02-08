@@ -13,7 +13,9 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 
 
+DROP TABLE IF EXISTS product_categories;
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -31,7 +33,6 @@ VALUES
 ('Opos WINTER EDITION', 20, 'cold boi', 'https://upload.wikimedia.org/wikipedia/commons/2/27/Opossum_2.jpg'),
 ('Opos ZESTAW', 80, 'oszczędzasz 6zł na oposie', 'https://upload.wikimedia.org/wikipedia/commons/0/07/Didelphis_virginiana_with_young.JPG');
 
-DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(50) NOT NULL
@@ -39,7 +40,6 @@ CREATE TABLE categories (
 
 INSERT INTO categories (name) VALUES ('Zwierzę'), ('Drapieżnik');
 
-DROP TABLE IF EXISTS product_categories;
 CREATE TABLE product_categories (
   id SERIAL PRIMARY KEY NOT NULL,
   product_id int NOT NULL,

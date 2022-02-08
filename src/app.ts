@@ -4,10 +4,20 @@ import * as path from "path";
 import session from "express-session";
 import PgStoreMod from "connect-pg-simple";
 import { pool } from "./dbConnection";
+import fs from "fs"
 
 const pgSession = PgStoreMod(session);
 
 import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
+
+
+
+const uploadPath = './public/uploads'
+// setup folder for uploads
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath);
+}
+
 
 // Routes
 import { index } from "./routes/index";

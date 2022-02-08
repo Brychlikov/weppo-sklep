@@ -104,8 +104,9 @@ productsRouter.post(
     prodData.img_url = imgUrl;
     const _p = await Product.createProduct(prodData);
     const user = await User.findByName(req.signedCookies.user);
-    res.render('products/added', { user : user, url : "/products/new",
-    cart_item_count : req.signedCookies.cart_item_count });
+    res.redirect('/');
+    // res.render('products/added', { user : user, url : "/products/new",
+    // cart_item_count : req.signedCookies.cart_item_count });
 });
 
 productsRouter.get("/:id", async (req, res) => {
